@@ -1,0 +1,18 @@
+<!-- <div [class.content]="!deviceXs" [class.content-mob]="deviceXs" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center"> -->
+ <div class="content" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
+
+  <mat-card [routerLink]="['/shows', movie.id]" class="example-card" *ngFor="let movie of movies">
+    <img mat-card-image [src]="movie.imagePath" alt="Photo of movie">
+    <mat-card-content>
+      <h4>{{ movie.name }}</h4>
+      <h5>{{ movie.language }}</h5>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+      <button mat-raised-button color="primary">Book Tickets</button>
+    </mat-card-actions> -->
+  </mat-card>
+  
+ 
+
+
+</div>

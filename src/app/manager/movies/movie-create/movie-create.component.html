@@ -1,0 +1,49 @@
+<mat-card>
+    <form [formGroup]="form" (submit)="addMovie()">
+        <mat-form-field>
+            <input 
+            matInput 
+            formControlName="name"
+            placeholder="Movie Name">
+            <mat-error *ngIf="form.get('name').invalid">Please enter a name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input 
+            matInput 
+            formControlName="imagePath"
+            placeholder="Movie image url">
+            <mat-error *ngIf="form.get('imagePath').invalid">Please enter an image url</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input 
+            matInput 
+            formControlName="language"
+            placeholder="language">
+            <mat-error *ngIf="form.get('language').invalid">Please enter language</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input 
+            matInput 
+            formControlName="duration"
+            placeholder="duration">
+            <mat-error *ngIf="form.get('duration').invalid">Please enter duration</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <textarea 
+            matInput 
+            rows="6" 
+            formControlName="description"
+            placeholder="Movie Description"></textarea>
+            <mat-error *ngIf="form.get('description').invalid">Please enter description</mat-error>
+        </mat-form-field>
+        <button 
+            mat-raised-button 
+            color = "primary"
+            type="submit">Save Movie</button>
+    </form>
+    
+</mat-card>

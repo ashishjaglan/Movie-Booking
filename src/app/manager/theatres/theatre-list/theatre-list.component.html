@@ -1,0 +1,5 @@
+<div class="theatres-holder">
+    <mat-grid-list [cols]="numOfCols" (window:resize)="onResize($event)" rowHeight="3:2"  gutterSize="15px">
+        <mat-grid-tile matRipple (click)="showHalls(theatre.id)" onfocus="" *ngFor="let theatre of theatres">{{ theatre.name }}</mat-grid-tile>        
+    </mat-grid-list>
+</div>

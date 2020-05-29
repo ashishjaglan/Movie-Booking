@@ -1,0 +1,54 @@
+mat-panel-title{
+    font-size: medium;
+    font-weight: normal;
+}
+mat-card{
+    margin-top: 2rem;
+}
+
+.padding-right {
+    padding-right: 10px;
+  }
+  
+  .padding-bottom {
+    padding-bottom: 10px;
+  }
+  
+  .padding-left {
+    padding-left: 10px;
+  }
+  
+  .title {
+    margin-bottom: 30px;
+  }
+  
+  
+  /* seat reservation */
+  .content {
+    text-align: center;
+  }
+
+  .screen{
+    margin: auto;
+    background-color: #777;
+    width: fit-content;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    color: white;
+  }
+  
+  .seatLayout {
+    margin: 30px auto;
+  }
+  
+  .seat {
+    cursor: pointer;
+  }
+  
+  .buttons {
+    margin: 30px auto;
+  }
+
+  button{
+    margin-left: 10px;
+  }

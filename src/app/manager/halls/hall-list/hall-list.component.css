@@ -1,0 +1,16 @@
+mat-grid-tile {
+    background: white;
+    cursor: pointer;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.14);
+    font-size: medium;
+  }
+
+  button{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+   .halls-holder {
+       margin: 2rem 2rem;
+  } 

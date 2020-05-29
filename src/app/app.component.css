@@ -1,0 +1,16 @@
+main{
+  width: 80%;
+  margin: 1rem auto;
+}
+
+div{
+  margin-bottom: 5rem;
+}
+
+.content {
+    margin-top: 65px;  
+  }
+  
+  .content-mob {
+    margin-top: 113px;
+  }
