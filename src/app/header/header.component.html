@@ -1,9 +1,9 @@
 <mat-toolbar color="primary" class="sticky">
   <mat-toolbar-row fxLayoutAlign="space-between center">
     <div fxLayout="row">
-      <button mat-button>
+      <button mat-button routerLink="/">
         <mat-icon>home</mat-icon>
-        <span class="logo" routerLink="/">Movie Booking</span>
+        <span class="logo" >Movie Booking</span>
       </button>
       <div *ngIf="!deviceXs && hasCityId" fxLayout="row">
         <button mat-button [routerLink]="['/movies', cityId]">Movies</button>

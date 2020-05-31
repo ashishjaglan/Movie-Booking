@@ -12,15 +12,16 @@ export class MoviesService{
     private cityId: string;
     private cityIdUpdate = new Subject<{updatedCityId: string}>();
     private movies: Movie[] =[];
-    private moviesUpdated = new Subject<{movies: Movie[]}>();
+    private moviesUpdated = new Subject<{movies: Movie[], movieCount: number}>();
 
 
     constructor(private http: HttpClient, private router: Router) {}
 
-    getMovies(cityId: string){
+    getMovies(cityId: string, moviesPerPage: number, currentPage: number){
         this.cityId = cityId;
         this.cityIdUpdate.next({updatedCityId: this.cityId}); 
-        this.http.get<{message: string, movies: any}>('http://localhost:3000/api/movie/' + cityId)
+        const queryParams = `?pagesize=${moviesPerPage}&page=${currentPage}`;
+        this.http.get<{message: string, movies: any, maxMovies: number}>('http://localhost:3000/api/movie/' + cityId + queryParams)
         .pipe(map((movieData) => {
             return {
             movies: movieData.movies.map(movie => {
@@ -33,12 +34,14 @@ export class MoviesService{
                     duration: movie.duration,
                     imagePath: movie.imagePath
                 };
-            })
+            }),
+            maxMovies: movieData.maxMovies
         };
         }))
         .subscribe((transformedMoviesData) => {
             this.movies = transformedMoviesData.movies;
-            this.moviesUpdated.next({movies: [...this.movies]});
+            this.moviesUpdated.next({movies: [...this.movies],
+                movieCount: transformedMoviesData.maxMovies});
         });
     }
 

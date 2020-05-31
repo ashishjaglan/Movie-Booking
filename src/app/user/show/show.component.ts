@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 
 export class ShowComponent{
-
+    isLoading = false;
     show: Show;
     showId: string;
     selected: string[] = [];
@@ -22,6 +22,7 @@ export class ShowComponent{
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if(paramMap.has('showId')){
                 this.showId = paramMap.get('showId');
+                this.isLoading = true;
                 this.showsService.getShow(this.showId).subscribe(showData => {
                     this.show = {
                         id: showData._id,
@@ -37,6 +38,7 @@ export class ShowComponent{
                         cols: showData.cols,
                         reservedSeats: showData.reservedSeats
                     };
+                    this.isLoading = false;
                 });
             }        
         

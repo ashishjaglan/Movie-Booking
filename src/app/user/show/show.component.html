@@ -1,5 +1,6 @@
 <body >
-    <div class="content" *ngIf="show">
+    <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+    <div class="content" *ngIf="show && !isLoading">
         <h2 class="title">Select your seats</h2>
 
         <h3 class="screen">Screen this way!</h3>

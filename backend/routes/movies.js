@@ -7,14 +7,35 @@ const router = express.Router();
 router.get("/:id", (req, res, next) => {
     // Movie.find({cityId: req.params.id}).explain('queryPlanner').then(doc => {
     //     console.log(doc);
-    // });    
-
-    Movie.find({cityId: req.params.id}).then(documents => { 
-        res.status(200).json({
+    // });  
+    
+    const pageSize = +req.query.pagesize;
+    const currentPage = +req.query.page;
+    const movieQuery = Movie.find({cityId: req.params.id});
+    let fetchedMovies;
+    if(pageSize && currentPage){
+        movieQuery
+        .skip(pageSize* ( currentPage - 1 ))
+        .limit(pageSize);
+    }
+    movieQuery.then(documents => {
+        fetchedMovies = documents;
+        return Movie.countDocuments({cityId: req.params.id});
+    })
+    .then(count => {
+        return res.status(200).json({
             message: 'Movies fetched successfully!',
-            movies: documents
+            movies: fetchedMovies,
+            maxMovies: count
         });
     });
+
+    // Movie.find({cityId: req.params.id}).then(documents => { 
+    //     res.status(200).json({
+    //         message: 'Movies fetched successfully!',
+    //         movies: documents
+    //     });
+    // });
     
 });
 

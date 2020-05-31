@@ -1,4 +1,4 @@
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
 
 <div class="cities-holder" *ngIf="!isLoading">
     <mat-grid-list [cols]="numOfCols" (window:resize)="onResize($event)" rowHeight="3:2"  gutterSize="10px">

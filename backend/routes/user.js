@@ -23,7 +23,7 @@ router.post("/signup", (req, res, next) => {
         })
         .catch(err => {
             res.status(500).json({
-                error: err
+                    message: "Invalid authentication credentials!"
             });
         });
     });    
@@ -34,9 +34,7 @@ router.post("/login", (req, res, next) => {
     User.findOne({ email: req.body.email })
     .then( user => {
         if(!user){
-            return res.status(401).json({
-                message: "Auth Failed"
-            });
+            throw new Error('User not found');
         }
         fetchedUser = user;
         return bcrypt.compare(req.body.password, user.password);
@@ -44,7 +42,7 @@ router.post("/login", (req, res, next) => {
     then( result => {
         if(!result){
             return res.status(401).json({
-                message: "Auth Failed"
+                message: "Incorrect Password"
             });
         }
         const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id, userName: fetchedUser.name}, 
@@ -60,9 +58,10 @@ router.post("/login", (req, res, next) => {
     })
     .catch(err => {
         return res.status(401).json({
-            message: "Auth Failed"
+            message: err.toString()
         });
-    });
+    })
+    ;
 });
 
 module.exports = router;

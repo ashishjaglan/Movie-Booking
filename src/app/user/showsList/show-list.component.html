@@ -1,12 +1,12 @@
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
 
 <div *ngIf="!isLoading">
   <mat-card class="example-card" *ngFor="let show of shows" [routerLink]="['/show', show.id]">
       <mat-card-header>
         <mat-card-title>{{ show.theatreData }}</mat-card-title>
         <mat-card-subtitle>
-          <div>
-            <h4>{{ show.date }}</h4>
+          <div  fxLayout="row">
+            <h4 class="date">{{ show.date }}</h4>
             <h4>{{ show.startTime }}</h4>
           </div>
         </mat-card-subtitle>

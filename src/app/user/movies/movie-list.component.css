@@ -2,8 +2,16 @@ mat-card img{
   height: 220px;
 }
 
+mat-spinner {
+  margin: auto auto;
+}
+
+mat-paginator {
+  margin-top: 1rem;
+}
+
 .content {
-  position: absolute;
+  position: block;
   margin: auto;
 
 }

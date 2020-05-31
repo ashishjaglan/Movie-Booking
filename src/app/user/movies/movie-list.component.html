@@ -1,5 +1,5 @@
 <!-- <div [class.content]="!deviceXs" [class.content-mob]="deviceXs" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center"> -->
-  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+  <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
 
   <div class="content" *ngIf="!isLoading" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
 
@@ -13,6 +13,8 @@
       <button mat-raised-button color="primary">Book Tickets</button>
     </mat-card-actions> -->
   </mat-card>
-
-
 </div>
+<mat-paginator [length]="totalMovies" [pageSize]="moviesPerPage" [pageSizeOptions]="pagesSizeOptions" (page)="onChangedPage($event)" 
+*ngIf="movies.length > 0">
+</mat-paginator>
+

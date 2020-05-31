@@ -19,6 +19,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -40,6 +43,8 @@ import { HallShowComponent } from './manager/halls/hall-show/hall-show.component
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -58,6 +63,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     HallShowComponent,
     LoginComponent,
     SignupComponent,
+    ErrorComponent,
     HeaderComponent
   ],
   imports: [
@@ -79,15 +85,20 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatPaginatorModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,
     HttpClientModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }
 export class MyModule { }

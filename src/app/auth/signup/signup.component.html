@@ -1,6 +1,7 @@
-<mat-card>
+<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
     
-    <form (submit)="onSignUp(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+<mat-card *ngIf="!isLoading">
+    <form (submit)="onSignUp(signupForm)" #signupForm="ngForm">
         <mat-form-field>
             <input matInput name="email" type="email" ngModel #emailInput="ngModel" placeholder="E-Mail" required email>
             <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
