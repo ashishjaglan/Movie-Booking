@@ -13,6 +13,7 @@ import { HallCreateComponent } from './manager/halls/hall-create/hall-create.com
 import { HallShowComponent } from './manager/halls/hall-show/hall-show.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { UserAuthGuard } from './auth/auth.guard'
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: '', component: CityListComponent },
   { path: 'movies/:cityId', component: MovieListComponent },
   { path: 'shows/:sourceId', component: ShowListComponent },
-  { path: 'show/:showId', component: ShowComponent },
+  { path: 'show/:showId', component: ShowComponent, canActivate: [UserAuthGuard] },
   { path: 'manager/city', component: CityCreateComponent },
   { path: 'manager/movie', component: MovieCreateComponent },
   { path: 'manager/theatreCreate', component: TheatreCreateComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UserAuthGuard]
 })
 export class AppRoutingModule { }

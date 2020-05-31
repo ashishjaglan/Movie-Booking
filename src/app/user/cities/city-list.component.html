@@ -1,4 +1,6 @@
-<div class="cities-holder">
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+<div class="cities-holder" *ngIf="!isLoading">
     <mat-grid-list [cols]="numOfCols" (window:resize)="onResize($event)" rowHeight="3:2"  gutterSize="10px">
         <mat-grid-tile matRipple [routerLink]="['/movies', city.id]" onfocus="" *ngFor="let city of cities">{{ city.name }}</mat-grid-tile>        
     </mat-grid-list>

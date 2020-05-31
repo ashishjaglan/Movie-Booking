@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 
 export class ShowListComponent implements OnInit{
-
+    isLoading = false;
     sourceId: string;
     shows: Show[] = [];
     showsSub: Subscription;
@@ -24,9 +24,11 @@ export class ShowListComponent implements OnInit{
             if(paramMap.has('sourceId')){
                 this.sourceId = paramMap.get('sourceId');
             }        
+        this.isLoading = true;
         this.showsService.getShows(this.sourceId);
         this.showsSub = this.showsService.getShowsUpdateListener()
         .subscribe((shows: Show[]) => {
+            this.isLoading = false;
           this.shows = shows;
         });
         });

@@ -10,6 +10,7 @@ import { CitiesService } from 'src/app/services/cities.service';
 })
 export class CityListComponent implements OnInit, OnDestroy{
     numOfCols: number;
+    isLoading = false;
     cities: City[] = [];
     private citiesSub: Subscription;
 
@@ -17,9 +18,11 @@ export class CityListComponent implements OnInit, OnDestroy{
 
     ngOnInit() {        
         this.setNumOfCols(window.innerWidth);
+        this.isLoading = true;
         this.citiesService.getCities();
         this.citiesSub = this.citiesService.getCitiesUpdateListener()
         .subscribe((cities: City[]) => {
+          this.isLoading = false;
           this.cities = cities;
         });
       }

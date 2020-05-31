@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 
 export class MovieListComponent implements OnInit {
     movies: Movie[] = [];
+    isLoading = false;
     cityId: string;
     cityName: string;
     moviesSub: Subscription;
@@ -23,9 +24,11 @@ export class MovieListComponent implements OnInit {
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if(paramMap.has('cityId')){
                 this.cityId = paramMap.get('cityId');
+                this.isLoading = true;
                 this.moviesService.getMovies(this.cityId);
                 this.moviesSub = this.moviesService.getMoviesUpdateListener()
                 .subscribe((moviesData:{movies: Movie[]}) => {
+                    this.isLoading = false;
                     this.movies = moviesData.movies;
                   });
             }

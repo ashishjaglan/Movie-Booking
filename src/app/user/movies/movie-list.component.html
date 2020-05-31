@@ -1,5 +1,7 @@
 <!-- <div [class.content]="!deviceXs" [class.content-mob]="deviceXs" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center"> -->
- <div class="content" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <div class="content" *ngIf="!isLoading" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
 
   <mat-card [routerLink]="['/shows', movie.id]" class="example-card" *ngFor="let movie of movies">
     <img mat-card-image [src]="movie.imagePath" alt="Photo of movie">
@@ -11,8 +13,6 @@
       <button mat-raised-button color="primary">Book Tickets</button>
     </mat-card-actions> -->
   </mat-card>
-  
- 
 
 
 </div>
