@@ -13,9 +13,13 @@ import { ShowsService } from 'src/app/services/shows.service';
 export class HallShowComponent{
     hallId: string;
     hall: Hall;
-    rows: string[];
-    cols: string[];
     form: FormGroup;
+    rows: number;
+    alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+    'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
+    rowsArray: string[];
+
+    colsArray: string[] = ['1'];
 
     constructor(public hallsService: HallsService, public showsService: ShowsService, 
         public route: ActivatedRoute, public router: Router) {}
@@ -29,9 +33,10 @@ export class HallShowComponent{
                         id: hallData._id,
                         name: hallData.name,
                         theatreId: hallData.theatreId,
-                        rows: hallData.rows,
+                        seats: hallData.seats,
                         cols: hallData.cols
                     };
+                    this.seatLayout();
                 });
             }                      
         });
@@ -47,9 +52,19 @@ export class HallShowComponent{
 
     }
 
+    seatLayout(){
+        this.rows = this.hall.seats.length / this.hall.cols;
+        this.rowsArray = this.alphabet.slice(0,this.rows);
+
+        for (let step = 2; step <= this.hall.cols; step++) {
+            this.colsArray.push(step.toString());
+        }
+
+    }
+
     addShow(){
         this.showsService.addShow(this.form.value.sourceId, this.hall.theatreId, this.hallId, this.form.value.date, 
-            this.form.value.startTime, this.form.value.endTime, this.form.value.price, this.hall.rows, this.hall.cols);
+            this.form.value.startTime, this.form.value.endTime, this.form.value.price, this.hall.seats, this.hall.cols);
     }
 
     

@@ -10,3 +10,7 @@ mat-form-field{
 mat-spinner {
     margin: auto;
 }
+
+.hideIcon {
+    cursor: pointer;
+}

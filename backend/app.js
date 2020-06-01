@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const cityRoutes = require("./routes/cities");
 const movieRoutes = require("./routes/movies");
+const eventRoutes = require("./routes/events");
 const theatreRoutes = require("./routes/theatres");
 const hallRoutes = require("./routes/halls");
 const showRoutes = require("./routes/shows");
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 
 app.use("/api/city", cityRoutes);
 app.use("/api/movie", movieRoutes);
+app.use("/api/event", eventRoutes);
 app.use("/api/theatre", theatreRoutes);
 app.use("/api/hall", hallRoutes);
 app.use("/api/show", showRoutes);

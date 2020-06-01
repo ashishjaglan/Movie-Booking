@@ -19,9 +19,9 @@ export class MovieListComponent implements OnInit {
     cityName: string;
     moviesSub: Subscription;
     totalMovies = 0;
-    moviesPerPage = 2;
+    moviesPerPage = 4;
     currentPage=1;
-    pagesSizeOptions = [1,2,5,10];
+    pagesSizeOptions = [4,8,12,16];
     
     constructor(public moviesService: MoviesService, public route: ActivatedRoute){}
 

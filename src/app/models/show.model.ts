@@ -8,7 +8,6 @@ export interface Show{
     endTime: string;
     price: number;
     seatsAvailable: number;
-    rows: string[];
-    cols: string[];
-    reservedSeats: string[];
+    seats: number[];
+    cols: number;
 }

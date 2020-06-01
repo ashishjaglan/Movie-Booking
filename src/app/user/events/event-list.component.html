@@ -1,0 +1,20 @@
+<!-- <div [class.content]="!deviceXs" [class.content-mob]="deviceXs" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center"> -->
+  <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+
+  <div class="content" *ngIf="!isLoading" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
+
+  <mat-card [routerLink]="['/shows', event.id]" class="example-card" *ngFor="let event of events">
+    <img mat-card-image [src]="event.imagePath" alt="Photo of event">
+    <mat-card-content>
+      <h4>{{ event.name }}</h4>
+      <h5>{{ event.language }}</h5>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+      <button mat-raised-button color="primary">Book Tickets</button>
+    </mat-card-actions> -->
+  </mat-card>
+</div>
+<mat-paginator [length]="totalEvents" [pageSize]="eventsPerPage" [pageSizeOptions]="pagesSizeOptions" (page)="onChangedPage($event)" 
+*ngIf="events.length > 0">
+</mat-paginator>
+

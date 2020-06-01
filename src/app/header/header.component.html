@@ -7,7 +7,7 @@
       </button>
       <div *ngIf="!deviceXs && hasCityId" fxLayout="row">
         <button mat-button [routerLink]="['/movies', cityId]">Movies</button>
-        <button mat-button>Events</button>
+        <button mat-button [routerLink]="['/events', cityId]">Events</button>
         <button mat-button>History</button>
       </div>
     </div>

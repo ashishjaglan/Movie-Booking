@@ -8,11 +8,11 @@
         <table class="seatLayout">
             <tr>
                 <td class="padding-bottom"></td>
-                <td class="padding-bottom" *ngFor="let col of hall.cols">{{ col }}</td>
+                <td class="padding-bottom" *ngFor="let col of colsArray">{{ col }}</td>
             </tr>
-            <tr *ngFor="let row of hall.rows">
+            <tr *ngFor="let row of rowsArray">
                 <td class="padding-right" >{{ row }}</td>
-                <td class="seat" *ngFor="let col of hall.cols" >
+                <td class="seat" *ngFor="let col of colsArray" >
                     <img src="../../../../assets/img/seat_available.png">
                 </td>
             </tr>

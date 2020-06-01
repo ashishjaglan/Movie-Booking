@@ -14,7 +14,14 @@ export class ShowComponent{
     isLoading = false;
     show: Show;
     showId: string;
-    selected: string[] = [];
+    selected: number[] = [];
+    rows: number;
+    alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+    'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
+    rowsArray: string[];
+
+    colsArray: number[] = [1];
+    
 
     constructor(public showsService: ShowsService, public route: ActivatedRoute) {}
 
@@ -34,48 +41,62 @@ export class ShowComponent{
                         endTime: showData.endTime,
                         price: showData.price,
                         seatsAvailable: showData.seatsAvailable,
-                        rows: showData.rows,
-                        cols: showData.cols,
-                        reservedSeats: showData.reservedSeats
+                        seats: showData.seats,
+                        cols: showData.cols
                     };
                     this.isLoading = false;
+                    this.seatLayout();
                 });
             }        
-        
         });
     }
-        // seat onClick
-        seatClicked(seatPos) {
-            console.log("Selected Seat: " + seatPos);
-            var index = this.selected.indexOf(seatPos);
-            if(index != -1) {
-                // seat already selected, remove
-                this.selected.splice(index, 1)
-            } else {
-                // new seat, push
-                this.selected.push(seatPos);
-            }
+
+    seatLayout(){
+        this.rows = this.show.seats.length / this.show.cols;
+        this.rowsArray = this.alphabet.slice(0,this.rows);
+
+        for (let step = 2; step <= this.show.cols; step++) {
+            this.colsArray.push(step);
         }
 
-        // get seat status
-        getStatus(seatPos) {
-            if(this.show.reservedSeats && this.show.reservedSeats.indexOf(seatPos) > -1) {
-                return 'reserved';
-            } else if(this.selected.indexOf(seatPos) > -1) {
-                return 'selected';
-            }
-        }
+    }
 
-        clearSelected() {
-            this.selected = [];
+    // seat onClick
+    seatClicked(rowNumber, colNumber) {
+        rowNumber = rowNumber.charCodeAt(0)-65;
+        let index = (rowNumber * this.show.cols) + colNumber-1;
+        console.log("Selected Seat: " + index);
+        var i = this.selected.indexOf(index);
+        if(i != -1) {
+            // seat already selected, remove
+            this.selected.splice(i, 1)
+        } else {
+            // new seat, push
+            this.selected.push(index);
         }
+    }
 
-        showSelected() {
-            if(this.selected.length > 0) {
-                alert("Selected Seats: \n" + this.selected);
-            } else {
-                alert("No seats selected!");
-            }
+    // get seat status
+    getStatus(rowNumber, colNumber) {
+        rowNumber = rowNumber.charCodeAt(0)-65;
+        let index = (rowNumber * this.show.cols) + colNumber-1;
+        if(this.show.seats[index]==1) {
+            return 'reserved';
+        } else if(this.selected.indexOf(index) > -1) {
+            return 'selected';
         }
+    }
+
+    clearSelected() {
+        this.selected = [];
+    }
+
+    // showSelected() {
+    //     if(this.selected.length > 0) {
+    //         alert("Selected Seats: \n" + this.selected);
+    //     } else {
+    //         alert("No seats selected!");
+    //     }
+    // }
 
 }

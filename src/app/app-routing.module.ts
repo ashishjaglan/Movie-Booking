@@ -14,6 +14,8 @@ import { HallShowComponent } from './manager/halls/hall-show/hall-show.component
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { UserAuthGuard } from './auth/auth.guard'
+import { EventCreateComponent } from './manager/events/event-create/event-create.component';
+import { EventListComponent } from './user/events/event-list.component';
 
 
 const routes: Routes = [
@@ -21,10 +23,12 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: '', component: CityListComponent },
   { path: 'movies/:cityId', component: MovieListComponent },
+  { path: 'events/:cityId', component: EventListComponent },
   { path: 'shows/:sourceId', component: ShowListComponent },
   { path: 'show/:showId', component: ShowComponent, canActivate: [UserAuthGuard] },
   { path: 'manager/city', component: CityCreateComponent },
   { path: 'manager/movie', component: MovieCreateComponent },
+  { path: 'manager/event', component: EventCreateComponent },
   { path: 'manager/theatreCreate', component: TheatreCreateComponent },
   { path: 'manager/theatreList', component: TheatreListComponent },
   { path: 'manager/hallList/:theatreId', component: HallListComponent },

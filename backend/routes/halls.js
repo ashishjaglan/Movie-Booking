@@ -28,7 +28,7 @@ router.post("", (req, res, next) => {
     const hall=new Hall({
         theatreId: req.body.theatreId,
         name: req.body.name,
-        rows: req.body.rows,
+        seats: req.body.seats,
         cols: req.body.cols        
     });
     hall.save().then(document => {

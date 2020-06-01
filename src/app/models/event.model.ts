@@ -1,8 +1,9 @@
 export interface Event{
     id: string;
-    managerId: string;
+    cityId: string;
     name: string;
     language: string;
     description: string;
-    duration: number;
+    duration: string;
+    imagePath: string;
 }

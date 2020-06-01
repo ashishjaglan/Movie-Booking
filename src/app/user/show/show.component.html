@@ -8,11 +8,11 @@
         <table class="seatLayout">
             <tr>
                 <td class="padding-bottom"></td>
-                <td class="padding-bottom" *ngFor="let col of show.cols">{{ col }}</td>
+                <td class="padding-bottom" *ngFor="let col of colsArray">{{ col }}</td>
             </tr>
-            <tr *ngFor="let row of show.rows">
+            <tr *ngFor="let row of rowsArray">
                 <td class="padding-right" >{{ row }}</td>
-                <td class="seat" *ngFor="let col of show.cols" (click)="seatClicked(row + col)" [ngSwitch]="getStatus(row + col)" >
+                <td class="seat" *ngFor="let col of colsArray" (click)="seatClicked(row , col)" [ngSwitch]="getStatus(row , col)" >
                     <img *ngSwitchCase="'selected'" src="../../../assets/img/seat_selected.png">
                     <img *ngSwitchCase="'reserved'" src="../../../assets/img/seat_reserved.png">
                     <img *ngSwitchDefault src="../../../assets/img/seat_available.png">
@@ -28,7 +28,6 @@
 
         <div class="buttons">
             <button mat-raised-button color = "primary" (click)="clearSelected()">Clear</button>
-            <button mat-raised-button color = "primary" (click)="showSelected()">Show selected seats!</button>
         </div>
     </div>
 </body>

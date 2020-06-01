@@ -42,9 +42,8 @@ router.post("", (req, res, next) => {
             endTime: req.body.endTime,
             price: req.body.price,
             seatsAvailable: req.body.seatsAvailable,
-            rows: req.body.rows,
+            seats: req.body.seats,
             cols: req.body.cols,
-            reservedSeats: null,
             bookings: null
         });
         show.save().then(document => {

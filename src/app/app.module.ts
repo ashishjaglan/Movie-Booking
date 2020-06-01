@@ -45,6 +45,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { EventCreateComponent } from './manager/events/event-create/event-create.component';
+import { EventListComponent } from './user/events/event-list.component';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import { ErrorComponent } from './error/error.component';
     CityListComponent,
     MovieListComponent,
     MovieCreateComponent,
+    EventListComponent,
+    EventCreateComponent,
     ShowListComponent,
     ShowComponent,
     TheatreCreateComponent,

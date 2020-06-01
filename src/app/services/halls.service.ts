@@ -20,7 +20,7 @@ export class HallsService{
                     name: hall.name,
                     id: hall._id,
                     theaterId: hall.theatreId,
-                    rows: hall.rows,
+                    seats: hall.seats,
                     cols: hall.cols
                 };
             })
@@ -36,8 +36,8 @@ export class HallsService{
             _id: string, 
             theatreId: string, 
             name: string, 
-            rows: string[],
-            cols: string[]
+            seats: number[],
+            cols: number
         }>( 'http://localhost:3000/api/hall/data/' + hallId)
     }
 
@@ -47,15 +47,13 @@ export class HallsService{
 
 
     addHall(theaterId: string, name: string, rows: string, cols: string){
-        var alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
-        var rowsArray: string[] = alphabet.slice(0,parseInt(rows));
-
-        var colsArray: string[] = ['1'];
-        for (let step = 2; step <= parseInt(cols); step++) {
-            colsArray.push(step.toString());
+        
+        var seats: number[] = [];
+        for (let step = 0; step < parseInt(cols)*parseInt(rows); step++) {
+            seats.push(0);
           }
 
-        const hall: Hall = { id: null, theatreId: theaterId, name: name, rows: rowsArray, cols: colsArray };
+        const hall: Hall = { id: null, theatreId: theaterId, name: name, seats: seats, cols: parseInt(cols) };
         //console.log(hall);
         
         this.http

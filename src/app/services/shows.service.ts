@@ -27,9 +27,8 @@ export class ShowsService{
                     endTime: show.endTime,
                     price: show.price,
                     seatsAvailable: show.seatsAvailable,
-                    rows: show.rows,
-                    cols: show.cols,
-                    reservedSeats: show.reservedSeats,
+                    seats: show.seats,
+                    cols: show.cols
                 };
             })
         }))
@@ -54,14 +53,13 @@ export class ShowsService{
             endTime: string;
             price: number;
             seatsAvailable: number;
-            rows: string[];
-            cols: string[];
-            reservedSeats: string[];
+            seats: number[];
+            cols: number;
         }>( 'http://localhost:3000/api/show/data/' + showId)
     }
 
     addShow(sourceId: string, theatreId: string, hallId: string, date: Date, startTime: string, 
-        endTime: string, price: string, rows: string[], cols: string[]){
+        endTime: string, price: string, seats: number[], cols: number){
         
             var month = date.getUTCMonth() + 1; //months from 1-12
             var day = date.getDate();
@@ -69,8 +67,8 @@ export class ShowsService{
             
             var showdate = day + "/" + month + "/" + year;
         const show: Show = { id: null, sourceId: sourceId, theatreData: theatreId, hallId: hallId, date: showdate,
-            startTime: startTime, endTime: endTime, price: parseInt(price), seatsAvailable: (rows.length * cols.length), 
-            rows: rows, cols: cols, reservedSeats: null };
+            startTime: startTime, endTime: endTime, price: parseInt(price), seatsAvailable: (seats.length), 
+            seats: seats, cols: cols};
             
         this.http
             .post<{ message: string}>('http://localhost:3000/api/show', show)

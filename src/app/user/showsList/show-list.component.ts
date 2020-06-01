@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Show } from 'src/app/models/show.model';
-import { ListPopulatingService } from '../listpopulating.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ShowsService } from 'src/app/services/shows.service';
 import { Subscription } from 'rxjs';

@@ -15,9 +15,8 @@ const showSchema = mongoose.Schema({
     endTime: { type: String, required: true },
     price: { type: Number, required: true },
     seatsAvailable: { type: Number, required: true },
-    rows: { type: [String], required: true },
-    cols: { type: [String], required: true },
-    reservedSeats: { type: [String] },
+    seats: { type: [Number], required: true },
+    cols: { type: Number, required: true },
     bookings: { type: [bookingSchema] }
 });
 
