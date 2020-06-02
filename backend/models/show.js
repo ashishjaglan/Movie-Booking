@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
-const bookingSchema = mongoose.Schema({
-    userId: { type: String, required: true },
-    bookedSeats: { type: [String], required: true },
-    totalPayment: { type: Number, required: true }
-});
+const Booking = require("../models/show");
 
 const showSchema = mongoose.Schema({
     sourceId: { type: String, required: true },
@@ -17,10 +13,12 @@ const showSchema = mongoose.Schema({
     seatsAvailable: { type: Number, required: true },
     seats: { type: [Number], required: true },
     cols: { type: Number, required: true },
-    bookings: { type: [bookingSchema] }
+    bookings: { type: [Booking] }
 });
 
 showSchema.index({sourceId: 1, hallId: 1});
+//bookingSchema.index({userId: 1});
 
 
 module.exports = mongoose.model('Show', showSchema);
+//module.exports = mongoose.model('Booking', bookingSchema);

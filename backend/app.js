@@ -8,7 +8,8 @@ const eventRoutes = require("./routes/events");
 const theatreRoutes = require("./routes/theatres");
 const hallRoutes = require("./routes/halls");
 const showRoutes = require("./routes/shows");
-const userRoutes = require('./routes/user');
+const bookingRoutes = require("./routes/bookings");
+const userRoutes = require("./routes/user");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api/event", eventRoutes);
 app.use("/api/theatre", theatreRoutes);
 app.use("/api/hall", hallRoutes);
 app.use("/api/show", showRoutes);
+app.use("/api/booking", bookingRoutes);
 app.use("/api/user", userRoutes);
 
 

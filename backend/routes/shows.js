@@ -44,7 +44,7 @@ router.post("", (req, res, next) => {
             seatsAvailable: req.body.seatsAvailable,
             seats: req.body.seats,
             cols: req.body.cols,
-            bookings: null
+            bookings: [Object]
         });
         show.save().then(document => {
             res.status(200).json({

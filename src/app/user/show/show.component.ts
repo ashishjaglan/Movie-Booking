@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ShowsService } from 'src/app/services/shows.service';
+import { BookingsService } from 'src/app/services/bookings.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Show } from 'src/app/models/show.model';
 import { Subscription } from 'rxjs';
+import { ShowsService } from 'src/app/services/shows.service';
 
 @Component({
     selector: 'app-show',
@@ -23,7 +24,7 @@ export class ShowComponent{
     colsArray: number[] = [1];
     
 
-    constructor(public showsService: ShowsService, public route: ActivatedRoute) {}
+    constructor(public showsService: ShowsService, public bookingService: BookingsService, public route: ActivatedRoute) {}
 
     ngOnInit(){
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -65,6 +66,10 @@ export class ShowComponent{
     seatClicked(rowNumber, colNumber) {
         rowNumber = rowNumber.charCodeAt(0)-65;
         let index = (rowNumber * this.show.cols) + colNumber-1;
+        if(this.show.seats[index]==1) {
+            console.log("Seat already booked");            
+            return;
+        }
         console.log("Selected Seat: " + index);
         var i = this.selected.indexOf(index);
         if(i != -1) {
@@ -91,12 +96,9 @@ export class ShowComponent{
         this.selected = [];
     }
 
-    // showSelected() {
-    //     if(this.selected.length > 0) {
-    //         alert("Selected Seats: \n" + this.selected);
-    //     } else {
-    //         alert("No seats selected!");
-    //     }
-    // }
+    bookSeats(){
+        console.log(this.selected);
+        this.bookingService.addBooking(this.showId, this.show.price*this.selected.length, this.selected);
+    }
 
 }
