@@ -17,8 +17,6 @@ const showSchema = mongoose.Schema({
 });
 
 showSchema.index({sourceId: 1, hallId: 1});
-//bookingSchema.index({userId: 1});
 
 
 module.exports = mongoose.model('Show', showSchema);
-//module.exports = mongoose.model('Booking', bookingSchema);

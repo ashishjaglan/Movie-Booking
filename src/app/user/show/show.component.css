@@ -1,5 +1,14 @@
 mat-spinner {
-  margin: auto auto;
+  margin: 16rem auto;
+}
+
+button {
+  background-color: #0378ff;
+  color: white;
+  font-style: normal;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  padding: 4px 40px;
 }
 
 .browsehappy {
@@ -27,7 +36,9 @@ mat-spinner {
   }
   
   .title {
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: xx-large;
   }
   
   /* Custom page footer */
@@ -45,6 +56,11 @@ mat-spinner {
   /* seat reservation */
   .content {
     text-align: center;
+    margin: auto;
+    background-color: white;
+    width: fit-content;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.14);
+    padding: 1rem 4rem;
   }
 
   .screen{
@@ -58,10 +74,16 @@ mat-spinner {
   
   .seatLayout {
     margin: 30px auto;
+    color: black;
+    font-size: 15px;
   }
   
-  .seat {
+  .seatAllowed {
     cursor: pointer;
+  }
+
+  .seatNotAllowed {
+    cursor: not-allowed;
   }
   
   .buttons {

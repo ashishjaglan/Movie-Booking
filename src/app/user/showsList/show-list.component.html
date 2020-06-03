@@ -13,3 +13,8 @@
       </mat-card-header>
     </mat-card>
   </div>
+
+  <div class="noContent">
+    <h3 *ngIf="shows.length <= 0 && !isLoading">No shows added yet!</h3>
+  </div>
+  

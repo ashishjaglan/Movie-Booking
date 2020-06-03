@@ -18,3 +18,6 @@
 *ngIf="events.length > 0">
 </mat-paginator>
 
+<div class="noContent">
+  <h3 *ngIf="events.length <= 0 && !isLoading">No events added yet!</h3>
+</div>

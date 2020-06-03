@@ -17,11 +17,23 @@ mat-card-content{
 }
 
 mat-spinner {
-  margin: auto auto;
+  margin: 16rem auto;
 }
 
 mat-paginator {
   margin-top: 1rem;
+}
+
+h3 {
+  font-size: larger;
+  color: #666;    
+}
+
+.noContent {
+  margin: 16rem auto;
+  width: fit-content;
+  padding: 2% 5%;
+  font-size: 25px;
 }
 
 .content {

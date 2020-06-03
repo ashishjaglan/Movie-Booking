@@ -1,7 +1,7 @@
 <body >
     <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
     <div class="content" *ngIf="show && !isLoading">
-        <h2 class="title">Select your seats</h2>
+        <h1 class="title">Select your seats</h1>
 
         <h3 class="screen">Screen this way!</h3>
 
@@ -12,10 +12,10 @@
             </tr>
             <tr *ngFor="let row of rowsArray">
                 <td class="padding-right" >{{ row }}</td>
-                <td class="seat" *ngFor="let col of colsArray" (click)="seatClicked(row , col)" [ngSwitch]="getStatus(row , col)" >
-                    <img *ngSwitchCase="'selected'" src="../../../assets/img/seat_selected.png">
-                    <img *ngSwitchCase="'reserved'" src="../../../assets/img/seat_reserved.png">
-                    <img *ngSwitchDefault src="../../../assets/img/seat_available.png">
+                <td *ngFor="let col of colsArray" (click)="seatClicked(row , col)" [ngSwitch]="getStatus(row , col)" >
+                    <img *ngSwitchCase="'selected'" class="seatAllowed" src="../../../assets/img/seat_selected.png">
+                    <img *ngSwitchCase="'reserved'" class="seatNotAllowed" src="../../../assets/img/seat_reserved.png">
+                    <img *ngSwitchDefault class="seatAllowed" src="../../../assets/img/seat_available.png">
                 </td>
             </tr>
         </table>
@@ -27,8 +27,8 @@
         </div>
 
         <div class="buttons">
-            <button mat-raised-button color = "primary" (click)="clearSelected()">Clear</button>
-            <button mat-raised-button color = "primary" (click)="bookSeats()">Book Seats</button>
+            <button mat-raised-button [disabled]="selected.length == 0" (click)="clearSelected()">Clear</button>
+            <button mat-raised-button [disabled]="selected.length == 0" (click)="bookSeats()">Book Seats</button>
         </div>
     </div>
 </body>

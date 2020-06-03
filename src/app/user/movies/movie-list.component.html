@@ -18,3 +18,7 @@
 *ngIf="movies.length > 0">
 </mat-paginator>
 
+<div class="noContent">
+  <h3 *ngIf="movies.length <= 0 && !isLoading">No movies added yet!</h3>
+</div>
+

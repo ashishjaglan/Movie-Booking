@@ -45,8 +45,8 @@ export class ShowComponent{
                         seats: showData.seats,
                         cols: showData.cols
                     };
-                    this.isLoading = false;
                     this.seatLayout();
+                    this.isLoading = false;
                 });
             }        
         });
