@@ -6,8 +6,9 @@
         <mat-card-title>{{ show.theatreData }}</mat-card-title>
         <mat-card-subtitle>
           <div  fxLayout="row">
-            <h4 class="date">{{ show.date }}</h4>
-            <h4>{{ show.startTime }}</h4>
+            <h4 class="date">{{ show.startTime.toDateString() }}</h4>
+            <h4>{{ show.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}</h4>
+            <h4>Seats available: {{ show.seatsAvailable }}</h4>
           </div>
         </mat-card-subtitle>
       </mat-card-header>

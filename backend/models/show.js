@@ -6,9 +6,8 @@ const showSchema = mongoose.Schema({
     sourceId: { type: String, required: true },
     theatreName: { type: String, required: true },
     hallId: { type: String, required: true },
-    date: { type: String, required: true },
-    startTime: { type: String, required: true },
-    endTime: { type: String, required: true },
+    startTime: { type: Date, required: true },
+    endTime: { type: Date, required: true },
     price: { type: Number, required: true },
     seatsAvailable: { type: Number, required: true },
     seats: { type: [Number], required: true },
@@ -16,7 +15,7 @@ const showSchema = mongoose.Schema({
     bookings: { type: [Booking] }
 });
 
-showSchema.index({sourceId: 1, hallId: 1});
+showSchema.index({sourceId: 1, startTime: 1, hallId: 1});
 
 
 module.exports = mongoose.model('Show', showSchema);

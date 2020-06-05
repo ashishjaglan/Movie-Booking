@@ -7,15 +7,16 @@ h3 {
     color: #666;    
 }
 
+h4 {
+    margin-right: 5rem;
+}
+
+
 .noContent {
     margin: 16rem auto;
     width: fit-content;
     padding: 2% 5%;
     font-size: 25px;
-}
-
-.date {
-    margin-right: 5rem;
 }
 
 .example-card{

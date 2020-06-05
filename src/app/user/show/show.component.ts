@@ -37,7 +37,6 @@ export class ShowComponent{
                         sourceId: showData.sourceId,
                         theatreData: showData.theatreData,
                         hallId: showData.hallId,
-                        date: showData.date,
                         startTime: showData.startTime,
                         endTime: showData.endTime,
                         price: showData.price,
@@ -46,7 +45,7 @@ export class ShowComponent{
                         cols: showData.cols
                     };
                     this.seatLayout();
-                    this.isLoading = false;
+                    //this.isLoading = false;
                 });
             }        
         });
@@ -59,7 +58,7 @@ export class ShowComponent{
         for (let step = 2; step <= this.show.cols; step++) {
             this.colsArray.push(step);
         }
-
+        this.isLoading = false;
     }
 
     // seat onClick

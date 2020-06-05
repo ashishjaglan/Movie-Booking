@@ -15,8 +15,7 @@ const app = express();
 
 mongoose.connect("mongodb+srv://ashish:ashish17@cluster0-hhgji.mongodb.net/main?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log("Connected to db");
-        
+        console.log("Connected to db");        
     })
     .catch(() => {
         console.log("Connection failed!!");

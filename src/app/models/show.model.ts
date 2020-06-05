@@ -3,9 +3,8 @@ export interface Show{
     sourceId: string;
     theatreData: string;
     hallId: string;
-    date: string;
-    startTime: string;
-    endTime: string;
+    startTime: Date;
+    endTime: Date;
     price: number;
     seatsAvailable: number;
     seats: number[];

@@ -22,9 +22,8 @@ export class ShowsService{
                     sourceId: show.sourceId,
                     theatreData: show.theatreName,
                     hallId: show.hallId,
-                    date: show.date,
-                    startTime: show.startTime,
-                    endTime: show.endTime,
+                    startTime: new Date(show.startTime),
+                    endTime: new Date(show.endTime),
                     price: show.price,
                     seatsAvailable: show.seatsAvailable,
                     seats: show.seats,
@@ -48,9 +47,8 @@ export class ShowsService{
             sourceId: string;
             theatreData: string;
             hallId: string;
-            date: string;
-            startTime: string;
-            endTime: string;
+            startTime: Date;
+            endTime: Date;
             price: number;
             seatsAvailable: number;
             seats: number[];
@@ -60,14 +58,43 @@ export class ShowsService{
 
     addShow(sourceId: string, theatreId: string, hallId: string, date: Date, startTime: string, 
         endTime: string, price: string, seats: number[], cols: number){
-        
-            var month = date.getUTCMonth() + 1; //months from 1-12
-            var day = date.getDate();
-            var year = date.getUTCFullYear();
             
-            var showdate = day + "/" + month + "/" + year;
-        const show: Show = { id: null, sourceId: sourceId, theatreData: theatreId, hallId: hallId, date: showdate,
-            startTime: startTime, endTime: endTime, price: parseInt(price), seatsAvailable: (seats.length), 
+            var startHour = startTime.split(':');
+            var startMinute = startHour[1].split(' ');            
+            var start = new Date(date);
+            if(startHour[0]=='12'){
+                if(startMinute[1]=='AM'){
+                    start.setHours(0);
+                }
+                else start.setHours(12);
+            }else{
+                if(startMinute[1]=='PM'){
+                    start.setHours(parseInt(startHour[0])+12);
+                }
+                else    start.setHours(parseInt(startHour[0]));
+            }            
+            start.setMinutes(parseInt(startMinute[0]));
+            console.log(start);
+            
+            var endHour = endTime.split(':');
+            var endMinute = endHour[1].split(' ');            
+            var end = new Date(date);
+            if(endHour[0]=='12'){
+                if(endMinute[1]=='AM'){
+                    end.setHours(0);
+                }
+                else end.setHours(12);
+            }else{
+                if(endMinute[1]=='PM'){
+                    end.setHours(parseInt(endHour[0])+12);
+                }
+                else    end.setHours(parseInt(endHour[0]));
+            }            
+            end.setMinutes(parseInt(endMinute[0]));
+            console.log(end);
+            
+        const show: Show = { id: null, sourceId: sourceId, theatreData: theatreId, hallId: hallId, 
+            startTime: start, endTime: end, price: parseInt(price), seatsAvailable: (seats.length), 
             seats: seats, cols: cols};
             
         this.http

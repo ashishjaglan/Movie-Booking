@@ -6,14 +6,15 @@ const Theatre = require("../models/theatre");
 const router = express.Router();
 
 router.get("/:id", (req, res, next) => {
-    // Movie.find({cityId: req.params.id}).explain('queryPlanner').then(doc => {
-    //     console.log(doc);
-    // });    
-    
-    Show.find({sourceId: req.params.id}).then(documents => { 
+    Show.find({sourceId: req.params.id, startTime: { $gte: new Date() } }).sort( { startTime: 1 } ).then(documents => { 
         res.status(200).json({
             message: 'Shows fetched successfully!',
             shows: documents
+        });
+    })
+    .catch(err => {
+        return res.status(400).json({
+            message: err.toString()
         });
     });
     
@@ -37,7 +38,6 @@ router.post("", (req, res, next) => {
             sourceId: req.body.sourceId,
             theatreName: theatreData.name,
             hallId: req.body.hallId,
-            date: req.body.date,
             startTime: req.body.startTime,
             endTime: req.body.endTime,
             price: req.body.price,
