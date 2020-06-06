@@ -22,6 +22,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -92,6 +93,7 @@ import { EventListComponent } from './user/events/event-list.component';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatMenuModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,

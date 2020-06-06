@@ -19,6 +19,12 @@ h4 {
     font-size: 25px;
 }
 
+.content {
+    position: block;
+    margin: auto;
+  
+  }
+
 .example-card{
     margin: 5px auto;
     width: 60%;

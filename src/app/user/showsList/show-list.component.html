@@ -5,7 +5,7 @@
       <mat-card-header>
         <mat-card-title>{{ show.theatreData }}</mat-card-title>
         <mat-card-subtitle>
-          <div  fxLayout="row">
+          <div class="content" fxLayout="row" fxLayout.xs="column">
             <h4 class="date">{{ show.startTime.toDateString() }}</h4>
             <h4>{{ show.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}</h4>
             <h4>Seats available: {{ show.seatsAvailable }}</h4>
@@ -16,6 +16,6 @@
   </div>
 
   <div class="noContent">
-    <h3 *ngIf="shows.length <= 0 && !isLoading">No shows added yet!</h3>
+    <h3 *ngIf="shows.length <= 0 && !isLoading">No shows available!</h3>
   </div>
   

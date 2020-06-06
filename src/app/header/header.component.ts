@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MoviesService } from '../services/movies.service';
 import { UserAuthService } from '../services/userAuth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -13,22 +13,27 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
     cityId: string;
     hasCityId: boolean = false;
-    private cityIdSub: Subscription;
     userIsAuthenticated = false;
     private userAuthListenerSubs: Subscription;
 
-    constructor(public moviesService: MoviesService, public userAuthService: UserAuthService) {}
+    constructor(public userAuthService: UserAuthService, public router: Router) {}
 
     ngOnInit(){
-        this.cityIdSub=this.moviesService.getCityIdUpdate().subscribe( (cityData: {updatedCityId: string}) => {
-            this.cityId = cityData.updatedCityId;
-            if(this.cityId != null) this.hasCityId = true;
-        });
-
+        this.cityId = localStorage.getItem('cityId');
+        if(this.cityId != null) this.hasCityId = true;
+        
         this.userIsAuthenticated = this.userAuthService.getIsAuth();
         this.userAuthListenerSubs = this.userAuthService.getAuthStatusListener().subscribe(isAuthenticated => {
             this.userIsAuthenticated = isAuthenticated;
         });
+    }
+
+    showMovies() {
+        this.router.navigate(["/movies"]);
+    }
+
+    showEvents() {
+        this.router.navigate(["/events"]);
     }
 
     onLogout() {

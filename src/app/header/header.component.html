@@ -6,16 +6,14 @@
         <span class="logo" >Movie Booking</span>
       </button>
       <div *ngIf="!deviceXs && hasCityId" fxLayout="row">
-        <button mat-button [routerLink]="['/movies', cityId] " routerLinkActive="mat-warn">Movies</button>
-        <button mat-button [routerLink]="['/events', cityId]" routerLinkActive="mat-warn">Events</button>
-        <button mat-button>History</button>
+        <button mat-button (click)="showMovies()" routerLinkActive="mat-warn">Movies</button>
+        <button mat-button (click)="showEvents()" routerLinkActive="mat-warn">Events</button>
+        <button mat-button *ngIf="userIsAuthenticated">History</button>
       </div>
     </div>
-    <!-- <div>
-      <button mat-button fxLayoutAlign="end">Logout</button>
-    </div> -->
+    
     <span class="spacer"></span>
-    <ul>
+    <ul *ngIf="!deviceXs">
         <li *ngIf="!userIsAuthenticated">
             <a mat-button routerLink="/login" routerLinkActive="mat-warn" >Login</a>
         </li>
@@ -26,10 +24,32 @@
             <button mat-button (click)="onLogout()" >Logout</button>
         </li>
     </ul>
+
+    <button *ngIf="deviceXs" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="userIsAuthenticated">
+        <mat-icon>person</mat-icon>
+        <span>UserName</span>
+      </button>
+      <button mat-menu-item *ngIf="userIsAuthenticated" (click)="onLogout()">
+        <mat-icon>arrow_forward</mat-icon>
+        <span>Logout</span>
+      </button>
+      <button mat-menu-item *ngIf="!userIsAuthenticated" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item *ngIf="!userIsAuthenticated" routerLink="/signup">
+        <mat-icon>person_add</mat-icon>
+        <span>Signup</span>
+      </button>
+    </mat-menu>
   </mat-toolbar-row>
   <mat-toolbar-row *ngIf="deviceXs && hasCityId" fxLayoutAlign="space-between end">
-    <button mat-button [routerLink]="['/movies', cityId]">Movies</button>
-    <button mat-button>Events</button>
-    <button mat-button>History</button>
+    <button mat-button (click)="showMovies()" routerLinkActive="mat-warn">Movies</button>
+    <button mat-button (click)="showEvents()" routerLinkActive="mat-warn">Events</button>
+    <button mat-button *ngIf="userIsAuthenticated">History</button>
   </mat-toolbar-row>
 </mat-toolbar>

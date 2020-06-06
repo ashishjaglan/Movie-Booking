@@ -6,4 +6,5 @@ export interface Movie{
     description: string;
     duration: string;
     imagePath: string;
+    timestamp: Date;
 }

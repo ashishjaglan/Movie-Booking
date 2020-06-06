@@ -6,10 +6,11 @@ const movieSchema = mongoose.Schema({
     language: { type: String, required: true },
     description: { type: String, required: true },
     duration: { type: String, required: true },
-    imagePath: { type: String, required: true }
+    imagePath: { type: String, required: true },
+    timestamp: { type: Date, required: true }
 });
 
-movieSchema.index({cityId: 1});
+movieSchema.index({cityId: 1, timestamp: 1});
 
 
 module.exports = mongoose.model('Movie', movieSchema);

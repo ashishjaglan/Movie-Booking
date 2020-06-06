@@ -10,29 +10,27 @@ import { map } from 'rxjs/operators';
 export class MoviesService{
 
     private cityId: string;
-    private cityIdUpdate = new Subject<{updatedCityId: string}>();
     private movies: Movie[] =[];
     private moviesUpdated = new Subject<{movies: Movie[], movieCount: number}>();
 
-
     constructor(private http: HttpClient, private router: Router) {}
 
-    getMovies(cityId: string, moviesPerPage: number, currentPage: number){
-        this.cityId = cityId;
-        this.cityIdUpdate.next({updatedCityId: this.cityId}); 
+    getMovies(moviesPerPage: number, currentPage: number){
+        this.cityId = localStorage.getItem('cityId');
         const queryParams = `?pagesize=${moviesPerPage}&page=${currentPage}`;
-        this.http.get<{message: string, movies: any, maxMovies: number}>('http://localhost:3000/api/movie/' + cityId + queryParams)
-        .pipe(map((movieData) => {
+        this.http.get<{message: string, movies: any, maxMovies: number}>('http://localhost:3000/api/movie/' + this.cityId + queryParams)
+        .pipe(map((movieData) => {            
             return {
             movies: movieData.movies.map(movie => {
                 return {
                     id: movie._id,
-                    cityId: movie.cityId,
+                    cityId: null,
                     name: movie.name,
                     language: movie.language,
-                    description: movie.description,
-                    duration: movie.duration,
-                    imagePath: movie.imagePath
+                    description: null,
+                    duration: null,
+                    imagePath: movie.imagePath,
+                    timestamp: null
                 };
             }),
             maxMovies: movieData.maxMovies
@@ -49,22 +47,13 @@ export class MoviesService{
         return this.moviesUpdated.asObservable();
     }
 
-    getCityIdUpdate(){
-        return this.cityIdUpdate.asObservable();
-    }
 
     //{"_id":{"$oid":"5ecbecaf88b09661c46201b9"},"name":"Delhi","__v":{"$numberInt":"0"}}
     //{"_id":{"$oid":"5ecbefdcea3f0f7e4cca92bc"},"name":"Bangalore","__v":{"$numberInt":"0"}}
 
     addMovie(name: string, imagePath: string, language: string, duration: string, description: string){
-        const movieData = new FormData();
-        movieData.append("name", name);
-        movieData.append("imagePath", imagePath);
-        movieData.append("language", language);
-        movieData.append("duration", duration);
-        movieData.append("description", description);
-        const movie: Movie = { id: null, cityId: "5ecbefdcea3f0f7e4cca92bc", name: name, language: language,
-            description: description, duration: duration, imagePath: imagePath };
+        const movie: Movie = { id: null, cityId: "5ecbecaf88b09661c46201b9", name: name, language: language,
+            description: description, duration: duration, imagePath: imagePath, timestamp: new Date() };
         this.http
             .post<{ message: string}>('http://localhost:3000/api/movie', movie)
             .subscribe((responseData) => {

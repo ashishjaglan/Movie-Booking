@@ -28,7 +28,7 @@
 
         <div class="buttons">
             <button mat-raised-button [disabled]="selected.length == 0" (click)="clearSelected()">Clear</button>
-            <button mat-raised-button [disabled]="selected.length == 0" (click)="bookSeats()">Book Seats</button>
+            <button mat-raised-button *ngIf="selected.length > 0" (click)="bookSeats()">Pay Rs.{{ selected.length * show.price}}</button>
         </div>
     </div>
 </body>

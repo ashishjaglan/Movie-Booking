@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/:id", (req, res, next) => {    
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
-    const eventQuery = Event.find({cityId: req.params.id});
+    const eventQuery = Event.find({cityId: req.params.id}, 'name language imagePath').sort( { timestamp: -1 } );
     let fetchedEvents;
     if(pageSize && currentPage){
         eventQuery
@@ -36,7 +36,8 @@ router.post("", (req, res, next) => {
         language: req.body.language,
         description: req.body.description,
         duration: req.body.duration,
-        imagePath: req.body.imagePath
+        imagePath: req.body.imagePath,
+        timestamp: req.body.timestamp
     });
     event.save().then(document => {
         res.status(200).json({

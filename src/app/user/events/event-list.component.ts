@@ -1,7 +1,7 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { Event } from '../../models/event.model';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventsService } from 'src/app/services/events.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -23,31 +23,29 @@ export class EventListComponent implements OnInit {
     currentPage=1;
     pagesSizeOptions = [4,8,12,16];
     
-    constructor(public eventsService: EventsService, public route: ActivatedRoute){}
+    constructor(public eventsService: EventsService, public route: ActivatedRoute, public router: Router){}
 
     ngOnInit(){
-        this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if(paramMap.has('cityId')){
-                this.cityId = paramMap.get('cityId');
-                this.isLoading = true;
-                this.eventsService.getEvents(this.cityId, this.eventsPerPage, this.currentPage);
+        this.cityId = localStorage.getItem('cityId');
+        if(this.cityId!=null){
+            this.isLoading = true;
+                this.eventsService.getEvents(this.eventsPerPage, this.currentPage);
                 this.eventsSub = this.eventsService.getEventsUpdateListener()
                 .subscribe((eventsData:{events: Event[], eventCount: number}) => {
                     this.isLoading = false;
                     this.events = eventsData.events;
                     this.totalEvents = eventsData.eventCount;
                   });
-            }
-            
-            
-        });
-    }
+        }else{
+            this.router.navigate(["/"]);
+        }
+     }
 
     onChangedPage(pageData: PageEvent){
         this.isLoading = true;
         this.currentPage = pageData.pageIndex + 1;
         this.eventsPerPage = pageData.pageSize;
-        this.eventsService.getEvents(this.cityId, this.eventsPerPage, this.currentPage);
+        this.eventsService.getEvents(this.eventsPerPage, this.currentPage);
     }
 
 }

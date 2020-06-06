@@ -9,9 +9,7 @@
       <h4>{{ movie.name }}</h4>
       <h5>{{ movie.language }}</h5>
     </mat-card-content>
-    <!-- <mat-card-actions>
-      <button mat-raised-button color="primary">Book Tickets</button>
-    </mat-card-actions> -->
+   
   </mat-card>
 </div>
 <mat-paginator [length]="totalMovies" [pageSize]="moviesPerPage" [pageSizeOptions]="pagesSizeOptions" (page)="onChangedPage($event)" 

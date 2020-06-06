@@ -10,7 +10,6 @@ export class ShowsService{
     private shows: Show[] = [];
     private showsUpdated = new Subject<{}>();
 
-
     constructor(private http: HttpClient, private router: Router) {}
 
     getShows(sourceId: string){
@@ -19,15 +18,15 @@ export class ShowsService{
             return showData.shows.map(show => {
                 return {
                     id: show._id,
-                    sourceId: show.sourceId,
+                    sourceId: null,
                     theatreData: show.theatreName,
-                    hallId: show.hallId,
+                    hallId: null,
                     startTime: new Date(show.startTime),
-                    endTime: new Date(show.endTime),
-                    price: show.price,
+                    endTime: null,
+                    price: null,
                     seatsAvailable: show.seatsAvailable,
-                    seats: show.seats,
-                    cols: show.cols
+                    seats: null,
+                    cols: null
                 };
             })
         }))

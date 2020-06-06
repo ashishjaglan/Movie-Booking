@@ -6,17 +6,21 @@ const Theatre = require("../models/theatre");
 const router = express.Router();
 
 router.get("/:id", (req, res, next) => {
-    Show.find({sourceId: req.params.id, startTime: { $gte: new Date() } }).sort( { startTime: 1 } ).then(documents => { 
-        res.status(200).json({
-            message: 'Shows fetched successfully!',
-            shows: documents
+    Show.find(
+        {sourceId: req.params.id, startTime: { $gte: new Date() } }, 
+         'theatreName startTime seatsAvailable' )
+        .sort( { startTime: 1 } )
+        .then(documents => { 
+            res.status(200).json({
+                message: 'Shows fetched successfully!',
+                shows: documents
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                message: err.toString()
+            });
         });
-    })
-    .catch(err => {
-        return res.status(400).json({
-            message: err.toString()
-        });
-    });
     
 });
 
@@ -31,9 +35,7 @@ router.get("/data/:id", (req, res, next) => {
 });
 
 router.post("", (req, res, next) => {
-    //var theatreName;
     Theatre.findById(req.body.theatreData).then(theatreData => {
-         //theatreName = theatreNameData;
          const show=new Show({
             sourceId: req.body.sourceId,
             theatreName: theatreData.name,

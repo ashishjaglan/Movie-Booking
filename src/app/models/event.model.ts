@@ -6,4 +6,5 @@ export interface Event{
     description: string;
     duration: string;
     imagePath: string;
+    timestamp: Date;
 }

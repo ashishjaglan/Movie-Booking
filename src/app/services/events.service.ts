@@ -10,29 +10,27 @@ import { map } from 'rxjs/operators';
 export class EventsService{
 
     private cityId: string;
-    private cityIdUpdate = new Subject<{updatedCityId: string}>();
     private events: Event[] =[];
     private eventsUpdated = new Subject<{events: Event[], eventCount: number}>();
 
-
     constructor(private http: HttpClient, private router: Router) {}
 
-    getEvents(cityId: string, eventsPerPage: number, currentPage: number){
-        this.cityId = cityId;
-        this.cityIdUpdate.next({updatedCityId: this.cityId}); 
+    getEvents(eventsPerPage: number, currentPage: number){
+        this.cityId = localStorage.getItem('cityId');
         const queryParams = `?pagesize=${eventsPerPage}&page=${currentPage}`;
-        this.http.get<{message: string, events: any, maxEvents: number}>('http://localhost:3000/api/event/' + cityId + queryParams)
+        this.http.get<{message: string, events: any, maxEvents: number}>('http://localhost:3000/api/event/' + this.cityId + queryParams)
         .pipe(map((eventData) => {
             return {
             events: eventData.events.map(event => {
                 return {
                     id: event._id,
-                    cityId: event.cityId,
+                    cityId: null,
                     name: event.name,
                     language: event.language,
-                    description: event.description,
-                    duration: event.duration,
-                    imagePath: event.imagePath
+                    description: null,
+                    duration: null,
+                    imagePath: event.imagePath,
+                    timestamp: null
                 };
             }),
             maxEvents: eventData.maxEvents
@@ -49,9 +47,6 @@ export class EventsService{
         return this.eventsUpdated.asObservable();
     }
 
-    getCityIdUpdate(){
-        return this.cityIdUpdate.asObservable();
-    }
 
     //{"_id":{"$oid":"5ecbecaf88b09661c46201b9"},"name":"Delhi","__v":{"$numberInt":"0"}}
     //{"_id":{"$oid":"5ecbefdcea3f0f7e4cca92bc"},"name":"Bangalore","__v":{"$numberInt":"0"}}
@@ -64,7 +59,7 @@ export class EventsService{
         eventData.append("duration", duration);
         eventData.append("description", description);
         const event: Event = { id: null, cityId: "5ecbecaf88b09661c46201b9", name: name, language: language,
-            description: description, duration: duration, imagePath: imagePath };
+            description: description, duration: duration, imagePath: imagePath, timestamp: new Date() };
         this.http
             .post<{ message: string}>('http://localhost:3000/api/event', event)
             .subscribe((responseData) => {
