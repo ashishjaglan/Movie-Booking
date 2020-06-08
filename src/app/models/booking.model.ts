@@ -4,4 +4,5 @@ export interface Booking{
     userId: string;
     bookedSeats: number[];
     totalPayment: number;
+    timeStamp: Date;
 }

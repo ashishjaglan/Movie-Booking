@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { CountdownModule } from 'ngx-countdown';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -48,6 +50,7 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { EventCreateComponent } from './manager/events/event-create/event-create.component';
 import { EventListComponent } from './user/events/event-list.component';
+import { PaymentComponent } from './user/payment/payment.component';
 
 
 @NgModule({
@@ -66,6 +69,7 @@ import { EventListComponent } from './user/events/event-list.component';
     HallListComponent,
     HallCreateComponent,
     HallShowComponent,
+    PaymentComponent,
     LoginComponent,
     SignupComponent,
     ErrorComponent,
@@ -97,6 +101,7 @@ import { EventListComponent } from './user/events/event-list.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,
+    CountdownModule,
     HttpClientModule
   ],
   providers: [

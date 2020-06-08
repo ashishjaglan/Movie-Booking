@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const Booking = require("../models/show");
-
 const showSchema = mongoose.Schema({
     sourceId: { type: String, required: true },
     theatreName: { type: String, required: true },
@@ -11,8 +9,7 @@ const showSchema = mongoose.Schema({
     price: { type: Number, required: true },
     seatsAvailable: { type: Number, required: true },
     seats: { type: [Number], required: true },
-    cols: { type: Number, required: true },
-    bookings: { type: [Booking] }
+    cols: { type: Number, required: true }
 });
 
 showSchema.index({sourceId: 1, startTime: 1, hallId: 1});

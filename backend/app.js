@@ -10,6 +10,8 @@ const hallRoutes = require("./routes/halls");
 const showRoutes = require("./routes/shows");
 const bookingRoutes = require("./routes/bookings");
 const userRoutes = require("./routes/user");
+const cronProcess = require("./cron-Process/cronProcess");
+
 
 const app = express();
 
@@ -38,6 +40,7 @@ app.use((req, res, next) => {
     );
     next();
 });
+
 
 app.use("/api/city", cityRoutes);
 app.use("/api/movie", movieRoutes);

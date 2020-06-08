@@ -12,12 +12,32 @@ export class BookingsService{
 
     addBooking(showId: string, totalPayment: number, bookedSeats: number[]){
         this.userId = this.userAuthService.getUserId();
-        const booking: Booking = { id: null, showId: showId, userId: this.userId, bookedSeats: bookedSeats, totalPayment: totalPayment };
+        const booking: Booking = { id: null, showId: showId, userId: this.userId, bookedSeats: bookedSeats, totalPayment: totalPayment, timeStamp: null };
         this.http
-            .post<{ message: string}>('http://localhost:3000/api/booking', booking)
+            .post<{ message: string, bookingId: string}>('http://localhost:3000/api/booking', booking)
             .subscribe((responseData) => {
-                console.log(responseData);                
-                location.reload();
+                this.router.navigate(["/payment/" + responseData.bookingId]);
             });
+
+    }
+
+    getBooking(bookingId: string){
+        return this.http.get<{
+            _id: string;
+            showId: string;
+            userId: string;
+            status: string;
+            bookedSeats: number[];
+            totalPayment: number;
+            timeStamp: Date;
+        }>( 'http://localhost:3000/api/booking/' + bookingId)
+    }
+
+    makePayment(bookingId: string, status: string){
+        this.http.patch<{ message: string }>( 'http://localhost:3000/api/booking/' + bookingId, {status} )
+        .subscribe((response) => {
+            console.log(response);
+            
+        });
     }
 }

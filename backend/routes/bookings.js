@@ -11,9 +11,12 @@ router.post("", (req, res, next) => {
     var setSeatsSelection = {};
 
     const booking=new Booking({
+        showId: req.body.showId,
         userId: req.body.userId,
+        status: "active",
         bookedSeats: req.body.bookedSeats,
-        totalPayment: req.body.totalPayment
+        totalPayment: req.body.totalPayment,
+        timeStamp: new Date()
     });
 
     for(var i = 0; i < booking.bookedSeats.length; i++) {
@@ -25,11 +28,15 @@ router.post("", (req, res, next) => {
         
         setSeatsSelection[seatSelection] = 1;  
       }
+
+    // booking.save().then(document => {
+    //     bookingTimestamp = document.timeStamp;
+    //     console.log(document);          
+    // });
       
     Show.findOneAndUpdate({_id:req.body.showId, $and: seatsQuery}, {
         $set: setSeatsSelection,
-        $inc: { seatsAvailable: -booking.bookedSeats.length },
-        $push: { bookings: booking }
+        $inc: { seatsAvailable: -booking.bookedSeats.length }
     },  {useFindAndModify: false})
     .then(document => {
         if(document == null){
@@ -37,9 +44,11 @@ router.post("", (req, res, next) => {
                 message: "Booking unsuccessful!"
             });
         }else{
-            res.status(200).json({
-                message: 'Booking done successfully!',
-                bookingData: document
+            booking.save().then(document => {
+                res.status(200).json({
+                    message: 'Booking done successfully!',
+                    bookingId: document._id
+                });     
             });
         }
     })
@@ -50,6 +59,64 @@ router.post("", (req, res, next) => {
     });
     
 });
+
+router.get("/:id", (req, res, next) => {
+    Booking.findById(req.params.id).then(booking => {
+        if(booking){
+            res.status(200).json(booking);
+        }else{
+            res.status(404).json({ message: 'Booking not found!'});
+        }
+    })
+});
+
+router.patch("/:id", (req, res, next) => {
+    if(req.body.status=="success"){
+        Booking.findByIdAndUpdate(req.params.id, {status: req.body.status}, {useFindAndModify: false})
+        .then((booking) => {
+            console.log(booking);        
+        })
+        .catch((err) => {
+            res.status(404).json({ message: 'Booking not found!'});
+        });
+    }else if(req.body.status=="cancelled"){
+        const start = async function(bookingId){
+            await cancelBooking(req.params.id);
+        }
+        start();
+    }
+    
+});
+
+const cancelBooking = async function(bookingId) {
+    const session = await Booking.startSession();
+    session.startTransaction();
+    try {
+      const opts = { session };
+      const cancelledBooking = await Booking.findByIdAndUpdate(bookingId, {status: "cancelled"}, {useFindAndModify: false, opts});
+
+        var setSeatsSelection = {};
+
+        for(var i = 0; i < cancelledBooking.bookedSeats.length; i++) {
+        setSeatsSelection['seats.' + cancelledBooking.bookedSeats[i]] = 0;
+        }
+  
+      await Show.findByIdAndUpdate(cancelledBooking.showId, { 
+        $set: setSeatsSelection ,
+        $inc: { seatsAvailable: +cancelledBooking.bookedSeats.length }
+        },{useFindAndModify: false, opts});
+  
+      await session.commitTransaction();
+      session.endSession();
+      return true;
+    } catch (error) {
+      // If an error occurred, abort the whole transaction and
+      // undo any changes that might have happened
+      await session.abortTransaction();
+      session.endSession();
+      throw error; 
+    }
+}
 
 
 

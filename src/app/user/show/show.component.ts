@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BookingsService } from 'src/app/services/bookings.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Show } from 'src/app/models/show.model';
@@ -11,7 +11,7 @@ import { ShowsService } from 'src/app/services/shows.service';
     templateUrl: './show.component.html'
 })
 
-export class ShowComponent{
+export class ShowComponent implements OnInit{
     isLoading = false;
     show: Show;
     showId: string;
