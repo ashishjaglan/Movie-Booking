@@ -1,5 +1,28 @@
-<countdown [config]="{ leftTime: timeLeft, format: 'mm:ss' }"></countdown>
-<div class="buttons">
-    <button mat-raised-button (click)="cancelBooking()">Cancel</button>
-    <button mat-raised-button (click)="makePayment()">Pay</button>
-</div>
+<mat-card class="timer">
+    <countdown [config]="{ leftTime: timeLeft, format: 'mm:ss' , demand: false}" (event)="finishPaymentWindow($event)"></countdown>
+</mat-card>
+
+<mat-card class="example-card" *ngIf="booking">
+    <mat-card-header >
+      <mat-card-title class="heading">Payment</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <div fxLayout="row">
+          <h2>Booked Seats</h2>
+          <div *ngFor="let seat of booking.bookedSeats">
+              <h3>{{ seat+1 }}</h3>
+          </div>
+      </div>
+      <div fxLayout="row">
+        <h2>Total Payment</h2>
+        <h3>{{  booking.totalPayment }}</h3>
+    </div>
+    </mat-card-content>
+    <hr>
+    <mat-card-actions class="buttons">
+        <button mat-raised-button (click)="cancelBooking()">Cancel</button>
+        <button mat-raised-button (click)="makePayment()">Pay</button>
+    </mat-card-actions>
+  </mat-card>
+  

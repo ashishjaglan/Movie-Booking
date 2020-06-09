@@ -19,6 +19,7 @@ export class ShowsService{
                 return {
                     id: show._id,
                     sourceId: null,
+                    isMovie: null,
                     theatreData: show.theatreName,
                     hallId: null,
                     startTime: new Date(show.startTime),
@@ -44,6 +45,7 @@ export class ShowsService{
         return this.http.get<{
             _id: string;
             sourceId: string;
+            isMovie: boolean;
             theatreData: string;
             hallId: string;
             startTime: Date;
@@ -55,7 +57,7 @@ export class ShowsService{
         }>( 'http://localhost:3000/api/show/data/' + showId)
     }
 
-    addShow(sourceId: string, theatreId: string, hallId: string, date: Date, startTime: string, 
+    addShow(sourceId: string, isMovie: boolean, theatreId: string, hallId: string, date: Date, startTime: string, 
         endTime: string, price: string, seats: number[], cols: number){
             
             var startHour = startTime.split(':');
@@ -92,7 +94,7 @@ export class ShowsService{
             end.setMinutes(parseInt(endMinute[0]));
             console.log(end);
             
-        const show: Show = { id: null, sourceId: sourceId, theatreData: theatreId, hallId: hallId, 
+        const show: Show = { id: null, sourceId: sourceId, isMovie: isMovie, theatreData: theatreId, hallId: hallId, 
             startTime: start, endTime: end, price: parseInt(price), seatsAvailable: (seats.length), 
             seats: seats, cols: cols};
             

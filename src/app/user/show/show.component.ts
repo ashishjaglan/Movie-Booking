@@ -35,10 +35,11 @@ export class ShowComponent implements OnInit{
                     this.show = {
                         id: showData._id,
                         sourceId: showData.sourceId,
+                        isMovie: showData.isMovie,
                         theatreData: showData.theatreData,
                         hallId: showData.hallId,
-                        startTime: showData.startTime,
-                        endTime: showData.endTime,
+                        startTime :new Date(showData.startTime),
+                        endTime: new Date(showData.endTime),
                         price: showData.price,
                         seatsAvailable: showData.seatsAvailable,
                         seats: showData.seats,

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const showSchema = mongoose.Schema({
     sourceId: { type: String, required: true },
+    isMovie: { type: Boolean, required: true },
     theatreName: { type: String, required: true },
     hallId: { type: String, required: true },
     startTime: { type: Date, required: true },

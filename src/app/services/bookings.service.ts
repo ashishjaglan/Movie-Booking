@@ -37,7 +37,6 @@ export class BookingsService{
         this.http.patch<{ message: string }>( 'http://localhost:3000/api/booking/' + bookingId, {status} )
         .subscribe((response) => {
             console.log(response);
-            
         });
     }
 }

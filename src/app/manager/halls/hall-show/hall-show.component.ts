@@ -12,6 +12,7 @@ import { ShowsService } from 'src/app/services/shows.service';
 })
 export class HallShowComponent{
     hallId: string;
+    isMovie = true;
     hall: Hall;
     form: FormGroup;
     rows: number;
@@ -63,7 +64,7 @@ export class HallShowComponent{
     }
 
     addShow(){
-        this.showsService.addShow(this.form.value.sourceId, this.hall.theatreId, this.hallId, this.form.value.date, 
+        this.showsService.addShow(this.form.value.sourceId, this.isMovie, this.hall.theatreId, this.hallId, this.form.value.date, 
             this.form.value.startTime, this.form.value.endTime, this.form.value.price, this.hall.seats, this.hall.cols);
     }
 

@@ -1,0 +1,20 @@
+<mat-card *ngFor="let historyItem of history">
+    <div fxLayout="row">
+        <div class="image">
+            <img [src]="historyItem.imagePath" alt="Photo of movie">
+        </div>
+        <div class="content">
+            <h2>{{ historyItem.sourceName }}</h2>
+            <div fxLayout="row">
+                <h4 class="rightmargin">{{ historyItem.startTime.toDateString() }}</h4>
+                <h4>{{ historyItem.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) }}</h4>
+            </div>
+            <h4>{{ historyItem.theatreName }}</h4>
+        </div>
+    </div>
+    <hr>
+    <div fxLayout="row">
+        <h2 class="rightmargin">{{ historyItem.bookedSeats }}</h2>
+        <h2>{{ historyItem.hallName }}</h2>
+    </div>
+</mat-card>

@@ -38,6 +38,7 @@ router.post("", (req, res, next) => {
     Theatre.findById(req.body.theatreData).then(theatreData => {
          const show=new Show({
             sourceId: req.body.sourceId,
+            isMovie: req.body.isMovie,
             theatreName: theatreData.name,
             hallId: req.body.hallId,
             startTime: req.body.startTime,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingsService } from 'src/app/services/bookings.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
     selector: 'app-booking-payment',
@@ -11,10 +12,11 @@ export class PaymentComponent implements OnInit{
     private bookingId: string;
     booking = null;
     isLoading = false;
+    isTimeLeft = true;
     bookingDeadlineTime: Date ;
-    timeLeft: number = 0;
+    timeLeft: number = 600;
 
-    constructor(public bookingService: BookingsService, public route: ActivatedRoute) {}
+    constructor(public bookingService: BookingsService, private historyService: HistoryService, public route: ActivatedRoute, public router: Router) {}
 
     ngOnInit(){
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -45,11 +47,25 @@ export class PaymentComponent implements OnInit{
         });
     }
 
+    finishPaymentWindow(event) {
+        if (event.action == "done"){
+            this.isTimeLeft = false;
+            this.router.navigate(["/"]);
+        }
+    }
+
     makePayment() {
-        this.bookingService.makePayment(this.booking.id, "success");
+        if(this.isTimeLeft == true){
+            this.bookingService.makePayment(this.booking.id, "success");
+            this.historyService.addBookingToHistory(this.bookingId);
+            this.router.navigate(["/history"]);
+        }
     }
 
     cancelBooking(){
-        this.bookingService.makePayment(this.booking.id, "cancelled");
+        if(this.isTimeLeft == true){
+            this.bookingService.makePayment(this.booking.id, "cancelled");
+            this.router.navigate(["/"]);
+        }
     }
 }

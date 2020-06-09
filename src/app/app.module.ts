@@ -51,6 +51,7 @@ import { ErrorComponent } from './error/error.component';
 import { EventCreateComponent } from './manager/events/event-create/event-create.component';
 import { EventListComponent } from './user/events/event-list.component';
 import { PaymentComponent } from './user/payment/payment.component';
+import { HistoryComponent } from './user/history/history.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { PaymentComponent } from './user/payment/payment.component';
     HallCreateComponent,
     HallShowComponent,
     PaymentComponent,
+    HistoryComponent,
     LoginComponent,
     SignupComponent,
     ErrorComponent,

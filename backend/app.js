@@ -10,6 +10,7 @@ const hallRoutes = require("./routes/halls");
 const showRoutes = require("./routes/shows");
 const bookingRoutes = require("./routes/bookings");
 const userRoutes = require("./routes/user");
+const historyRoutes = require("./routes/history")
 const cronProcess = require("./cron-Process/cronProcess");
 
 
@@ -49,6 +50,7 @@ app.use("/api/theatre", theatreRoutes);
 app.use("/api/hall", hallRoutes);
 app.use("/api/show", showRoutes);
 app.use("/api/booking", bookingRoutes);
+app.use("/api/history", historyRoutes);
 app.use("/api/user", userRoutes);
 
 

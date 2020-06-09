@@ -17,6 +17,7 @@ import { UserAuthGuard } from './auth/auth.guard'
 import { EventCreateComponent } from './manager/events/event-create/event-create.component';
 import { EventListComponent } from './user/events/event-list.component';
 import { PaymentComponent } from './user/payment/payment.component';
+import { HistoryComponent } from './user/history/history.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'shows/:sourceId', component: ShowListComponent },
   { path: 'show/:showId', component: ShowComponent, canActivate: [UserAuthGuard] },
   { path: 'payment/:bookingId', component: PaymentComponent, canActivate: [UserAuthGuard] },
+  { path: 'history', component: HistoryComponent, canActivate: [UserAuthGuard] },
   { path: 'manager/city', component: CityCreateComponent },
   { path: 'manager/movie', component: MovieCreateComponent },
   { path: 'manager/event', component: EventCreateComponent },
