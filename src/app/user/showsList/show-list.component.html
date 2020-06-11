@@ -1,5 +1,20 @@
 <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
 
+<!-- <div class="movie" fxLayout="row">
+  <div class="image">
+      <img src="https://i.pinimg.com/736x/3e/2b/7f/3e2b7fd692e74beed9f1353ed4dcb700.jpg" alt="Photo of movie">
+  </div>
+  <div class="movieContent">
+      <h1 class="movieName">The Imitation game</h1>
+      <div fxLayout="row">
+          <h1 class="rightmargin">Duration</h1>
+          <h1>Language</h1>
+      </div>
+      <p>Description</p>
+  </div>
+</div> -->
+
+
 <div *ngIf="!isLoading">
   <mat-card class="example-card" *ngFor="let show of shows" [routerLink]="['/show', show.id]">
       <mat-card-header>

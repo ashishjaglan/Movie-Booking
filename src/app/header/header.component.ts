@@ -28,14 +28,6 @@ export class HeaderComponent implements OnInit, OnDestroy{
         });
     }
 
-    showMovies() {
-        this.router.navigate(["/movies"]);
-    }
-
-    showEvents() {
-        this.router.navigate(["/events"]);
-    }
-
     onLogout() {
         this.userAuthService.logout();
     }

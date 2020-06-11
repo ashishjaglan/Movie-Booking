@@ -25,6 +25,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
@@ -52,6 +53,7 @@ import { EventCreateComponent } from './manager/events/event-create/event-create
 import { EventListComponent } from './user/events/event-list.component';
 import { PaymentComponent } from './user/payment/payment.component';
 import { HistoryComponent } from './user/history/history.component';
+import { PendingPaymentsComponent } from './user/payment/pendingPayments/pending-payments.component';
 
 
 @NgModule({
@@ -72,6 +74,7 @@ import { HistoryComponent } from './user/history/history.component';
     HallShowComponent,
     PaymentComponent,
     HistoryComponent,
+    PendingPaymentsComponent,
     LoginComponent,
     SignupComponent,
     ErrorComponent,
@@ -100,6 +103,7 @@ import { HistoryComponent } from './user/history/history.component';
     MatDialogModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatSidenavModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,

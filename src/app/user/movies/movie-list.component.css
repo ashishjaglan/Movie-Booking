@@ -5,6 +5,7 @@ mat-card img{
 
 mat-card{
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   padding-bottom: 0px;
 }

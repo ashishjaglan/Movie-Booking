@@ -6,9 +6,10 @@
         <span class="logo" >Movie Booking</span>
       </button>
       <div *ngIf="!deviceXs && hasCityId" fxLayout="row">
-        <button mat-button (click)="showMovies()" routerLinkActive="mat-warn">Movies</button>
-        <button mat-button (click)="showEvents()" routerLinkActive="mat-warn">Events</button>
-        <button mat-button *ngIf="userIsAuthenticated">History</button>
+        <button mat-button routerLink="/movies" routerLinkActive="mat-warn">Movies</button>
+        <button mat-button routerLink="/events" routerLinkActive="mat-warn">Events</button>
+        <button mat-button routerLink="/history" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">History</button>
+        <button mat-button routerLink="/pendingPayments" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">Pending payments</button>
       </div>
     </div>
     
@@ -48,8 +49,8 @@
     </mat-menu>
   </mat-toolbar-row>
   <mat-toolbar-row *ngIf="deviceXs && hasCityId" fxLayoutAlign="space-between end">
-    <button mat-button (click)="showMovies()" routerLinkActive="mat-warn">Movies</button>
-    <button mat-button (click)="showEvents()" routerLinkActive="mat-warn">Events</button>
-    <button mat-button *ngIf="userIsAuthenticated">History</button>
+    <button mat-button routerLink="/movies" routerLinkActive="mat-warn">Movies</button>
+    <button mat-button routerLink="/events" routerLinkActive="mat-warn">Events</button>
+    <button mat-button routerLink="/history" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">History</button>
   </mat-toolbar-row>
 </mat-toolbar>

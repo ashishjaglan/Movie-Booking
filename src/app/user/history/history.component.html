@@ -1,20 +1,41 @@
-<mat-card *ngFor="let historyItem of history">
-    <div fxLayout="row">
-        <div class="image">
-            <img [src]="historyItem.imagePath" alt="Photo of movie">
+<!-- <div class="title">Booking history</div> -->
+
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>
+        <div fxLayout="column" class="sideBar">
+            <button class="sidebarButton" routerLink="/history" mat-button routerLinkActive="mat-warn">Active Bookings</button>
+            <button class="sidebarButton" mat-button routerLinkActive="mat-warn">Past Bookings</button>
         </div>
-        <div class="content">
-            <h2>{{ historyItem.sourceName }}</h2>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+
+        <mat-card *ngFor="let historyItem of history" >
             <div fxLayout="row">
-                <h4 class="rightmargin">{{ historyItem.startTime.toDateString() }}</h4>
-                <h4>{{ historyItem.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) }}</h4>
+                <div class="image">
+                    <img [src]="historyItem.imagePath" alt="Photo of movie">
+                </div>
+                <div class="content">
+                    <h2>{{ historyItem.sourceName }}</h2>
+                    <div fxLayout="row">
+                        <h1 class="rightmargin">{{ historyItem.startTime.toDateString() }}</h1>
+                        <h1>{{ historyItem.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) }}</h1>
+                    </div>
+                    <h3>{{ historyItem.theatreName }}</h3>
+                </div>
             </div>
-            <h4>{{ historyItem.theatreName }}</h4>
+            <hr>
+            <div fxLayout="row">
+                <h2 class="rightmargin">{{ historyItem.bookedSeats }}</h2>
+                <h2>{{ historyItem.hallName }}</h2>
+                <button class="cancel" mat-raised-button >cancel</button>
+            </div>
+        </mat-card>
+
+        <div class="noContent">
+            <h3 *ngIf="history.length <= 0 && !isLoading">No tickets booked yet!</h3>
         </div>
-    </div>
-    <hr>
-    <div fxLayout="row">
-        <h2 class="rightmargin">{{ historyItem.bookedSeats }}</h2>
-        <h2>{{ historyItem.hallName }}</h2>
-    </div>
-</mat-card>
+    </mat-drawer-content>
+  </mat-drawer-container>
+  
+

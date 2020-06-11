@@ -1,8 +1,11 @@
-<mat-card class="timer">
+<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+
+<mat-card class="timer" *ngIf="!isLoading">
+  <h1>Time left</h1>
     <countdown [config]="{ leftTime: timeLeft, format: 'mm:ss' , demand: false}" (event)="finishPaymentWindow($event)"></countdown>
 </mat-card>
 
-<mat-card class="example-card" *ngIf="booking">
+<mat-card class="example-card" *ngIf="booking && !isLoading">
     <mat-card-header >
       <mat-card-title class="heading">Payment</mat-card-title>
     </mat-card-header>
@@ -10,13 +13,11 @@
     <mat-card-content>
       <div fxLayout="row">
           <h2>Booked Seats</h2>
-          <div *ngFor="let seat of booking.bookedSeats">
-              <h3>{{ seat+1 }}</h3>
-          </div>
+          <h3>{{ booking.bookedSeats.length }}</h3>
       </div>
       <div fxLayout="row">
         <h2>Total Payment</h2>
-        <h3>{{  booking.totalPayment }}</h3>
+        <h3>Rs.{{  booking.totalPayment }}</h3>
     </div>
     </mat-card-content>
     <hr>

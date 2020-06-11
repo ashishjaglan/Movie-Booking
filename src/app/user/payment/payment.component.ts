@@ -38,9 +38,15 @@ export class PaymentComponent implements OnInit{
                     let timeNow = new Date();
                     if(this.bookingDeadlineTime<timeNow){
                         this.timeLeft=0;
+                        window.history.go(-1);
                     }else{
+                        if(this.booking.status == 'cancelled' || this.booking.status == 'success'){
+                            window.history.go(-1);
+                            this.isLoading = false;
+                        }
                         this.timeLeft = Math.floor((this.bookingDeadlineTime.getTime() - new Date().getTime())/1000);
                     }
+                    this.isLoading = false;
                 });
                 
             }        
@@ -50,7 +56,7 @@ export class PaymentComponent implements OnInit{
     finishPaymentWindow(event) {
         if (event.action == "done"){
             this.isTimeLeft = false;
-            this.router.navigate(["/"]);
+            window.history.go(-1);
         }
     }
 
@@ -58,7 +64,6 @@ export class PaymentComponent implements OnInit{
         if(this.isTimeLeft == true){
             this.bookingService.makePayment(this.booking.id, "success");
             this.historyService.addBookingToHistory(this.bookingId);
-            this.router.navigate(["/history"]);
         }
     }
 

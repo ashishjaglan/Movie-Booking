@@ -3,10 +3,15 @@ import { Booking } from '../models/booking.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserAuthService } from './userAuth.service';
+import { map } from 'rxjs/operators';
+import { PendingPayment } from '../models/pendingPayment.model';
+import { Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class BookingsService{
     userId: string;
+    private pendingPayments: PendingPayment[] = [];
+    private pendingPaymentsUpdated = new Subject<{}>();
 
     constructor(private http: HttpClient, private userAuthService: UserAuthService, private router: Router) {}
 
@@ -38,5 +43,31 @@ export class BookingsService{
         .subscribe((response) => {
             console.log(response);
         });
+    }
+
+    getPendingPayments(){
+        this.userId = this.userAuthService.getUserId();
+        this.http.get<{message: string, pendingPayments: any}>('http://localhost:3000/api/booking/pendingPayments/' + this.userId)
+        .pipe(map((paymentData) => {
+            return paymentData.pendingPayments.map(pendingPayment => {
+                return {
+                    id: pendingPayment._id,
+                    showId: pendingPayment.showId,
+                    showName:null,
+                    userId: pendingPayment.userId,
+                    bookedSeats: pendingPayment.bookedSeats,
+                    totalPayment: pendingPayment.totalPayment,
+                    timeStamp: pendingPayment.timeStamp,
+                };
+            })
+        }))
+        .subscribe((transformedPendingPayments) => {
+            this.pendingPayments = transformedPendingPayments;
+            this.pendingPaymentsUpdated.next([...this.pendingPayments]);
+        });
+    }
+
+    getpendingPaymentsUpdateListener(){
+        return this.pendingPaymentsUpdated.asObservable();
     }
 }

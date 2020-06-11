@@ -45,14 +45,11 @@ export class HistoryService{
     }
 
     addBookingToHistory(bookingId: string){
-        console.log("history");
-        
         this.userId = this.userAuthService.getUserId();
         this.http
             .post<{ message: string}>('http://localhost:3000/api/history', {bookingId: bookingId, userId: this.userId})
             .subscribe((responseData) => {
-                console.log(responseData);                
-                //this.router.navigate(["/history"]);
+                this.router.navigate(["/movies"]);
             });
     }
 }

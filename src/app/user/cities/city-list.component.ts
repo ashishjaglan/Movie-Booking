@@ -33,10 +33,10 @@ export class CityListComponent implements OnInit, OnDestroy{
       }
 
     setNumOfCols(screenWidth: number){
-        if(screenWidth > 900)    this.numOfCols = 5;
-        else if(screenWidth <= 900 && screenWidth > 700)    this.numOfCols = 4;
-        else if(screenWidth <= 700 && screenWidth > 500)    this.numOfCols = 3;
-        else if(screenWidth <= 500 && screenWidth > 400)    this.numOfCols = 2;
+        if(screenWidth > 1100)    this.numOfCols = 5;
+        else if(screenWidth <= 1100 && screenWidth > 900)    this.numOfCols = 4;
+        else if(screenWidth <= 900 && screenWidth > 650)    this.numOfCols = 3;
+        else if(screenWidth <= 650 && screenWidth > 400)    this.numOfCols = 2;
         else this.numOfCols = 1;
     }
 

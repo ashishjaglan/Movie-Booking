@@ -9,6 +9,10 @@ mat-card-content {
     margin-bottom: 4rem;
 }
 
+mat-spinner {
+    margin: 16rem auto;
+  }
+
 button {
     background-color: #0378ff;
     color: white;
@@ -39,7 +43,8 @@ margin: 1rem auto;
 }
 
 .timer {
-    width: 80%;
+    width: fit-content;
     margin-bottom: 2rem;
-    padding: 5%;
+    padding: 1% 5%;
+    font-size: 28px;
 }

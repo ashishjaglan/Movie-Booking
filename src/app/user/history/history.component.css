@@ -1,20 +1,73 @@
 mat-card {
     width: 75%;
+    max-width: 600px;
     margin: 1rem auto;
     padding: 0rem 1rem;
+    background-color: #f8f8f8;
+    border: 2px solid #2b4054;
+    border-left: 2rem solid #2b4054;
 }
 
+mat-spinner {
+    margin: 16rem auto;
+  }
+
 img {
-    width: 5rem;
+    width: 6rem;
     height: 8rem;
     margin-right: 1rem;
     margin-top: 1rem;
 }
 
 .content {
+    margin-left: 5%;
     margin-top: 1rem;
+    font-weight: 200;
+    color: #2b4054;
+}
+
+.noContent {
+    margin: 16rem auto;
+    width: fit-content;
+    padding: 2% 5%;
+    font-size: 25px;
+}
+.cancel {
+    background-color: #0378ff;
+    color: white;
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 4px 40px;
+  }
+
+.sideBar {
+    margin-top: 2.5rem;
+}
+
+.sidebarButton{
+    background-color: #f2f2f2;
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 4px 8rem;
+    padding-left: 1rem;
+    margin-top: 1rem;
+}
+
+.title {
+    font-size: 38px;
+    font-weight: 200;
+    width: fit-content;
+    padding-top: 2rem;
+    margin: 3rem auto;
 }
 
 .rightmargin {
     margin-right: 2rem;
 }
+
+.example-container {
+    margin: 10px;
+    background-color: white;
+  }

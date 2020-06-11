@@ -5,8 +5,6 @@ const Show = require("../models/show");
 const cron = require('node-cron');
 
 cron.schedule('* * * * *', function() {
-    console.log("cron running");
-    
     expiryTime = new Date();
     expiryTime.setTime(expiryTime.getTime() - 10*60*1000);
     Booking.find({ status: "active", timeStamp: { $lte: expiryTime } }, "_id")

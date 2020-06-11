@@ -42,9 +42,9 @@ const addBookingHistory = async function(bookingId, userId) {
 
         if(fetchedShowData.isMovie == true){
             fetchedSourceData = await Movie.findById(fetchedShowData.sourceId);
-        }else{
-            fetchedSourceData = await Event.findById(fetchedShowData.sourceId)
-        }
+        } else {
+            fetchedSourceData = await Event.findById(fetchedShowData.sourceId);
+        }        
 
         var seats = [];
         var noOfCols = fetchedShowData.cols;

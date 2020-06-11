@@ -118,6 +118,17 @@ const cancelBooking = async function(bookingId) {
     }
 }
 
+router.get("/pendingPayments/:id", (req, res, next) => {
+    Booking.find({userId: req.params.id, status: "active"}).then(documents => {
+        res.status(200).json({
+            message: 'Payments fetched successfully!',
+            pendingPayments: documents
+        });
+    });
+    
+});
+
+
 
 
 

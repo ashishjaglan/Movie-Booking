@@ -1,0 +1,24 @@
+<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+
+
+<div *ngIf="!isLoading">
+  <mat-card class="example-card" *ngFor="let pendingPayment of pendingPayments" >
+      <mat-card-header>
+        <mat-card-title>Show name</mat-card-title>
+        <mat-card-subtitle>
+          <div class="content" fxLayout="row" fxLayout.xs="column">
+            <h4>Seats booked: {{ pendingPayment.bookedSeats.length }}</h4>
+            <h4>Total Payment: {{ pendingPayment.totalPayment }}</h4>
+          </div>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions class="buttons">
+        <button mat-raised-button (click)="gotoPaymentWindow(pendingPayment.id)">Pay Now</button>
+    </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="noContent">
+    <h3 *ngIf="pendingPayments.length <= 0 && !isLoading">No Pending payment!</h3>
+  </div>
+  
