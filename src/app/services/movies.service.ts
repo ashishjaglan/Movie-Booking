@@ -12,7 +12,9 @@ export class MoviesService{
 
     private cityId: string;
     private movies: Movie[] =[];
+    private managerMovies: Movie[] =[];
     private moviesUpdated = new Subject<{movies: Movie[], movieCount: number}>();
+    private managerMoviesUpdated = new Subject<{}>();
 
     constructor(private http: HttpClient, private router: Router, private managerAuthService: ManagerAuthService) {}
 
@@ -46,6 +48,35 @@ export class MoviesService{
 
     getMoviesUpdateListener(){
         return this.moviesUpdated.asObservable();
+    }
+
+    getMoviesForManager() {
+        const managerCityId = this.managerAuthService.getManagerCityId();
+        this.http.get<{message: string, movies: any}>('http://localhost:3000/api/movie/manager/' + managerCityId)
+        .pipe(map((movieData) => {            
+            return {
+            movies: movieData.movies.map(movie => {
+                return {
+                    id: movie._id,
+                    cityId: null,
+                    name: movie.name,
+                    language: null,
+                    description: null,
+                    duration: movie.duration,
+                    imagePath: null,
+                    timestamp: null
+                };
+            })
+        };
+        }))
+        .subscribe((transformedMoviesData) => {
+            this.managerMovies = transformedMoviesData.movies;
+            this.managerMoviesUpdated.next([...this.managerMovies]);
+        });
+    }
+
+    getManagerMoviesUpdateListener(){
+        return this.managerMoviesUpdated.asObservable();
     }
 
 

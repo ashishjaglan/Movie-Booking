@@ -33,6 +33,18 @@ router.get("/:id", (req, res, next) => {
     
 });
 
+router.get("/manager/:id", (req, res, next) => {
+    Movie.find({cityId: req.params.id}, 'name duration').sort( { name: 1 } ).then(movies => {
+        if(movies){
+            res.status(200).json({
+                message: "Movies fetched successfully",
+                movies: movies
+            });
+        }else{
+            res.status(404).json({ message: 'Movies not found!'});
+        }
+    })
+});
 
 router.post("", (req, res, next) => {
     const movie=new Movie({

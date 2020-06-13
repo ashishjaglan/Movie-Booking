@@ -25,7 +25,6 @@ export class HallCreateComponent{
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if(paramMap.has('theatreId')){
                 this.theaterId = paramMap.get('theatreId');
-                console.log(this.theaterId);                
                 // this.moviesService.getMovies(this.cityId);
                 // this.moviesSub = this.moviesService.getMoviesUpdateListener()
                 // .subscribe((moviesData:{movies: Movie[]}) => {
