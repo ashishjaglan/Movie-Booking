@@ -34,13 +34,14 @@ export class CitiesService{
         return this.citiesUpdated.asObservable();
     }
 
-    addCity(name: string){
-        const city: City = { id: null, name: name };
+    addCity(cityName: string){
+        const managerId = localStorage.getItem('managerId');
+        cityName = cityName.toLocaleUpperCase();
         this.http
-            .post<{ message: string}>('http://localhost:3000/api/city', city)
+            .post<{ message: string}>('http://localhost:3000/api/city', {cityName, managerId} )
             .subscribe((responseData) => {
                 console.log(responseData);                
-                this.router.navigate(["/"]);
+                //this.router.navigate(["/"]);
             });
         
     }

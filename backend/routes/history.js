@@ -10,9 +10,16 @@ const History = require("../models/history");
 const router = express.Router();
 
 router.get("/:id", (req, res, next) => {
-    History.find({userId: req.params.id})
-    .sort( { timeStamp: -1 } )
-    .then(documents => {
+    const activeBookings = req.query.active;
+    currentTime = new Date();
+    let historyQuery ;
+    if(activeBookings == 'true'){
+        historyQuery= History.find({userId: req.params.id, startTime: { $gte: currentTime }}).sort( { timeStamp: -1 } );
+    }else{
+        historyQuery= History.find({userId: req.params.id, startTime: { $lte: currentTime }}).sort( { timeStamp: -1 } );
+    }
+    //History.find({userId: req.params.id, startTime: { $gte: currentTime }}).sort( { timeStamp: -1 } )
+    historyQuery.then(documents => {
         res.status(200).json({
             message: 'Booking History fetched successfully!',
             histories: documents
@@ -79,5 +86,16 @@ const addBookingHistory = async function(bookingId, userId) {
       console.log(error);       
     }
 }
+
+router.delete("/:id", (req, res, next) => {
+    History.deleteOne({_id: req.params.id}).then(result => {
+        if(result.n > 0) {
+            res.status(200).json({message: "History deleted!"});
+        } else {
+            res.status(401).json({message: "Not deleted!"});
+        }
+    });
+    
+});
 
 module.exports = router;

@@ -16,6 +16,13 @@ export class HallShowComponent{
     hall: Hall;
     form: FormGroup;
     rows: number;
+    movies = [
+        {id: "123", name: "john"},
+        {id: "423", name: "sam"},
+        {id: "523", name: "tom"},
+        {id: "923", name: "ram"}
+    ];
+    selectedValue: string;
     alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
     'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
     rowsArray: string[];

@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { ManagerAuthService } from './managerAuth.service';
 
 
 @Injectable({providedIn: 'root'})
@@ -13,7 +14,7 @@ export class MoviesService{
     private movies: Movie[] =[];
     private moviesUpdated = new Subject<{movies: Movie[], movieCount: number}>();
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router, private managerAuthService: ManagerAuthService) {}
 
     getMovies(moviesPerPage: number, currentPage: number){
         this.cityId = localStorage.getItem('cityId');
@@ -52,7 +53,8 @@ export class MoviesService{
     //{"_id":{"$oid":"5ecbefdcea3f0f7e4cca92bc"},"name":"Bangalore","__v":{"$numberInt":"0"}}
 
     addMovie(name: string, imagePath: string, language: string, duration: string, description: string){
-        const movie: Movie = { id: null, cityId: "5ecbecaf88b09661c46201b9", name: name, language: language,
+        const managerCityId = this.managerAuthService.getManagerCityId();
+        const movie: Movie = { id: null, cityId: managerCityId, name: name, language: language,
             description: description, duration: duration, imagePath: imagePath, timestamp: new Date() };
         this.http
             .post<{ message: string}>('http://localhost:3000/api/movie', movie)

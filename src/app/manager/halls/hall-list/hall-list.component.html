@@ -1,4 +1,11 @@
-<button class="addHall" mat-raised-button color = "primary" (click)="navigateToHallCreate()">Add a new hall</button>
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add Hall
+        </mat-panel-title>
+    </mat-expansion-panel-header>  
+    <app-hall-create></app-hall-create>
+</mat-expansion-panel>
 
 <div class="halls-holder">
     <mat-grid-list [cols]="numOfCols" (window:resize)="onResize($event)" rowHeight="3:2"  gutterSize="10px">

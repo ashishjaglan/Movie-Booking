@@ -14,9 +14,10 @@ export class HistoryService{
 
     constructor(private http: HttpClient, private userAuthService: UserAuthService, private router: Router) {}
 
-    getBookingHistory(){
+    getBookingHistory(activeBookings: boolean){
         this.userId = this.userAuthService.getUserId();
-        this.http.get<{message: string, histories: any}>('http://localhost:3000/api/history/' + this.userId)
+        const queryParams = `?active=${activeBookings}`;
+        this.http.get<{message: string, histories: any}>('http://localhost:3000/api/history/' + this.userId + queryParams)
         .pipe(map((historyData) => {
             return historyData.histories.map(historyItem => {
                 return {
@@ -51,5 +52,9 @@ export class HistoryService{
             .subscribe((responseData) => {
                 this.router.navigate(["/movies"]);
             });
+    }
+
+    deleteEntry(historyId: string){
+        return this.http.delete('http://localhost:3000/api/history/' + historyId);
     }
 }

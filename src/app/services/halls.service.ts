@@ -58,9 +58,8 @@ export class HallsService{
         
         this.http
             .post<{ message: string}>('http://localhost:3000/api/hall', hall)
-            .subscribe((responseData) => {
-                //console.log(responseData);                
-                this.router.navigate(["/manager/hallList/"+ theaterId]);
+            .subscribe((responseData) => {             
+                location.reload();
             });
         
     }

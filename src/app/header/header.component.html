@@ -15,13 +15,13 @@
     
     <span class="spacer"></span>
     <ul *ngIf="!deviceXs">
-        <li *ngIf="!userIsAuthenticated">
+        <li *ngIf="!(userIsAuthenticated || managerIsAuthenticated)">
             <a mat-button routerLink="/login" routerLinkActive="mat-warn" >Login</a>
         </li>
-        <li *ngIf="!userIsAuthenticated">
+        <li *ngIf="!(userIsAuthenticated || managerIsAuthenticated)">
             <a mat-button routerLink="/signup" routerLinkActive="mat-warn" >Signup</a>
         </li>
-        <li *ngIf="userIsAuthenticated">
+        <li *ngIf="(userIsAuthenticated || managerIsAuthenticated)">
             <button mat-button (click)="onLogout()" >Logout</button>
         </li>
     </ul>
@@ -33,6 +33,10 @@
       <button mat-menu-item *ngIf="userIsAuthenticated">
         <mat-icon>person</mat-icon>
         <span>UserName</span>
+      </button>
+      <button mat-menu-item *ngIf="userIsAuthenticated" routerLink="/pendingPayments">
+        <mat-icon>payment</mat-icon>
+        <span>Pending payments</span>
       </button>
       <button mat-menu-item *ngIf="userIsAuthenticated" (click)="onLogout()">
         <mat-icon>arrow_forward</mat-icon>

@@ -20,6 +20,18 @@ button {
     padding: 4px 40px;
   }
 
+  #bottom { 
+    position:absolute;   
+    color: crimson;               
+    bottom:0;                          
+    right:2%;
+    cursor: pointer;
+}
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
 .hideIcon {
     cursor: pointer;
 }

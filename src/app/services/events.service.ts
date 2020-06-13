@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { ManagerAuthService } from './managerAuth.service';
 
 
 @Injectable({providedIn: 'root'})
@@ -13,7 +14,7 @@ export class EventsService{
     private events: Event[] =[];
     private eventsUpdated = new Subject<{events: Event[], eventCount: number}>();
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router, private managerAuthService: ManagerAuthService) {}
 
     getEvents(eventsPerPage: number, currentPage: number){
         this.cityId = localStorage.getItem('cityId');
@@ -52,13 +53,8 @@ export class EventsService{
     //{"_id":{"$oid":"5ecbefdcea3f0f7e4cca92bc"},"name":"Bangalore","__v":{"$numberInt":"0"}}
 
     addEvent(name: string, imagePath: string, language: string, duration: string, description: string){
-        const eventData = new FormData();
-        eventData.append("name", name);
-        eventData.append("imagePath", imagePath);
-        eventData.append("language", language);
-        eventData.append("duration", duration);
-        eventData.append("description", description);
-        const event: Event = { id: null, cityId: "5ecbecaf88b09661c46201b9", name: name, language: language,
+        const managerCityId = this.managerAuthService.getManagerCityId();
+        const event: Event = { id: null, cityId: managerCityId, name: name, language: language,
             description: description, duration: duration, imagePath: imagePath, timestamp: new Date() };
         this.http
             .post<{ message: string}>('http://localhost:3000/api/event', event)

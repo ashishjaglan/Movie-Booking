@@ -1,6 +1,8 @@
 <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
     
 <mat-card *ngIf="!isLoading">
+    <h1 *ngIf="userSignupDisplay==1">User Signup</h1>
+    <h1 *ngIf="userSignupDisplay==0">Manager Signup</h1>
     <form (submit)="onSignUp(signupForm)" #signupForm="ngForm">
         <mat-form-field>
             <input matInput name="email" type="email" ngModel #emailInput="ngModel" placeholder="E-Mail" required email>
@@ -18,9 +20,13 @@
             <mat-icon class="hideIcon" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             <mat-error *ngIf="passwordInput.invalid">Please enter valid password</mat-error>
         </mat-form-field>
-        <button 
+        <div fxLayout="row">
+            <button 
             mat-raised-button 
             type="submit">Signup</button>
+            <p id="bottom" *ngIf="userSignupDisplay==0" (click)="changeSignupDisplay()">User Signup?</p>
+            <p id="bottom" *ngIf="userSignupDisplay==1" (click)="changeSignupDisplay()">Manager Signup?</p>
+        </div>
     </form>
     
 </mat-card>

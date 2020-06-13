@@ -29,11 +29,6 @@ router.post("", (req, res, next) => {
         setSeatsSelection[seatSelection] = 1;  
       }
 
-    // booking.save().then(document => {
-    //     bookingTimestamp = document.timeStamp;
-    //     console.log(document);          
-    // });
-      
     Show.findOneAndUpdate({_id:req.body.showId, $and: seatsQuery}, {
         $set: setSeatsSelection,
         $inc: { seatsAvailable: -booking.bookedSeats.length }
@@ -119,7 +114,10 @@ const cancelBooking = async function(bookingId) {
 }
 
 router.get("/pendingPayments/:id", (req, res, next) => {
-    Booking.find({userId: req.params.id, status: "active"}).then(documents => {
+    allowedBookingTime = new Date();
+    allowedBookingTime.setTime(allowedBookingTime.getTime() - 10*60*1000);
+    Booking.find({userId: req.params.id, status: "active", timeStamp: { $gte: allowedBookingTime }})
+    .then(documents => {
         res.status(200).json({
             message: 'Payments fetched successfully!',
             pendingPayments: documents

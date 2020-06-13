@@ -1,33 +1,30 @@
-<mat-card>
-    <form [formGroup]="form" (submit)="addHall()">
-        <mat-form-field>
-            <input 
-            matInput 
-            formControlName="name"
-            placeholder="Hall Name">
-            <mat-error *ngIf="form.get('name').invalid">Please enter a name</mat-error>
-        </mat-form-field>
+<form [formGroup]="form" (submit)="addHall()">
+    <mat-form-field>
+        <input 
+        matInput 
+        formControlName="name"
+        placeholder="Hall Name">
+        <mat-error *ngIf="form.get('name').invalid">Please enter a name</mat-error>
+    </mat-form-field>
 
-        <mat-form-field>
-            <input 
-            matInput 
-            formControlName="rows"
-            placeholder="rows count">
-            <mat-error *ngIf="form.get('rows').invalid">Please enter rows count</mat-error>
-        </mat-form-field>
+    <mat-form-field>
+        <input 
+        matInput 
+        formControlName="rows"
+        placeholder="rows count">
+        <mat-error *ngIf="form.get('rows').invalid">Please enter rows count</mat-error>
+    </mat-form-field>
 
-        <mat-form-field>
-            <input 
-            matInput 
-            formControlName="cols"
-            placeholder="columns count">
-            <mat-error *ngIf="form.get('rows').invalid">Please enter columns count</mat-error>
-        </mat-form-field>
-        
-        <button 
-            mat-raised-button 
-            color = "primary"
-            type="submit">Save Hall</button>
-    </form>
+    <mat-form-field>
+        <input 
+        matInput 
+        formControlName="cols"
+        placeholder="columns count">
+        <mat-error *ngIf="form.get('rows').invalid">Please enter columns count</mat-error>
+    </mat-form-field>
     
-</mat-card>
+    <button 
+        mat-raised-button 
+        color = "primary"
+        type="submit">Save Hall</button>
+</form>

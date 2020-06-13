@@ -26,6 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -104,6 +105,7 @@ import { PendingPaymentsComponent } from './user/payment/pendingPayments/pending
     MatPaginatorModule,
     MatMenuModule,
     MatSidenavModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,

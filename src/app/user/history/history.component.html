@@ -3,8 +3,8 @@
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened>
         <div fxLayout="column" class="sideBar">
-            <button class="sidebarButton" routerLink="/history" mat-button routerLinkActive="mat-warn">Active Bookings</button>
-            <button class="sidebarButton" mat-button routerLinkActive="mat-warn">Past Bookings</button>
+            <button class="sidebarButton" (click)="reloadHistory('active')" routerLink="/history" mat-button routerLinkActive="mat-warn">Active Bookings</button>
+            <button class="sidebarButton" (click)="reloadHistory('past')" mat-button routerLinkActive="mat-warn">Past Bookings</button>
         </div>
     </mat-drawer>
     <mat-drawer-content>
@@ -28,12 +28,12 @@
             <div fxLayout="row">
                 <h2 class="rightmargin">{{ historyItem.bookedSeats }}</h2>
                 <h2>{{ historyItem.hallName }}</h2>
-                <button class="cancel" mat-raised-button >cancel</button>
+                <button *ngIf="activeBookings" class="cancel" (click)="cancelBooking(historyItem.id, historyItem.bookingId)" mat-raised-button >cancel</button>
             </div>
         </mat-card>
 
         <div class="noContent">
-            <h3 *ngIf="history.length <= 0 && !isLoading">No tickets booked yet!</h3>
+            <h3 *ngIf="history.length <= 0 && !isLoading">No tickets available!</h3>
         </div>
     </mat-drawer-content>
   </mat-drawer-container>

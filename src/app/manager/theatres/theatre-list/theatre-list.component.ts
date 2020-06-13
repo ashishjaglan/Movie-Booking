@@ -12,14 +12,14 @@ import { Router } from '@angular/router';
 export class TheatreListComponent implements OnInit, OnDestroy{
     numOfCols: number;
     theatres: Theatre[] = [];
-    private citiesSub: Subscription;
+    private theatresSub: Subscription;
 
     constructor(public theatresService: TheatresService, public router: Router) {}
 
     ngOnInit() {        
         this.setNumOfCols(window.innerWidth);
-        this.theatresService.getCities();
-        this.citiesSub = this.theatresService.getTheatresUpdateListener()
+        this.theatresService.getTheatres();
+        this.theatresSub = this.theatresService.getTheatresUpdateListener()
         .subscribe((theatres: Theatre[]) => {
           this.theatres = theatres;
         });
@@ -42,6 +42,6 @@ export class TheatreListComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy(){
-      this.citiesSub.unsubscribe();
+      this.theatresSub.unsubscribe();
     }
 }

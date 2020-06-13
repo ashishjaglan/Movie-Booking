@@ -34,6 +34,17 @@
                 placeholder="Movie Name">
                 <mat-error *ngIf="form.get('sourceId').invalid">Please enter a name</mat-error>
             </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Favorite movie</mat-label>
+                <mat-select [formControl]="selectedValue" name="movie">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let movie of movies" [value]="movie.id">
+                    {{movie.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p>Selected: {{selectedValue}}</p>
         
             <div>
                 <mat-form-field>
