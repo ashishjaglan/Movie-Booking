@@ -1,15 +1,20 @@
 <mat-toolbar color="primary" class="sticky">
   <mat-toolbar-row fxLayoutAlign="space-between center">
     <div fxLayout="row">
-      <button mat-button routerLink="/">
+      <button *ngIf="!managerIsAuthenticated" mat-button routerLink="/">
         <mat-icon>home</mat-icon>
         <span class="logo" >Movie Booking</span>
       </button>
-      <div *ngIf="!deviceXs && hasCityId" fxLayout="row">
+      <div *ngIf="!deviceXs && hasCityId && !managerIsAuthenticated" fxLayout="row">
         <button mat-button routerLink="/movies" routerLinkActive="mat-warn">Movies</button>
         <button mat-button routerLink="/events" routerLinkActive="mat-warn">Events</button>
         <button mat-button routerLink="/history" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">History</button>
         <button mat-button routerLink="/pendingPayments" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">Pending payments</button>
+      </div>
+      <div *ngIf="!deviceXs && managerIsAuthenticated" fxLayout="row">
+        <button mat-button routerLink="/manager/movie" routerLinkActive="mat-warn">Movies</button>
+        <button mat-button routerLink="/manager/event" routerLinkActive="mat-warn">Events</button>
+        <button mat-button routerLink="/manager/theatreList" routerLinkActive="mat-warn">Theatres</button>
       </div>
     </div>
     

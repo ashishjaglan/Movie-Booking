@@ -55,6 +55,7 @@ import { EventListComponent } from './user/events/event-list.component';
 import { PaymentComponent } from './user/payment/payment.component';
 import { HistoryComponent } from './user/history/history.component';
 import { PendingPaymentsComponent } from './user/payment/pendingPayments/pending-payments.component';
+import { SidenavComponent } from './manager/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { PendingPaymentsComponent } from './user/payment/pendingPayments/pending
     LoginComponent,
     SignupComponent,
     ErrorComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

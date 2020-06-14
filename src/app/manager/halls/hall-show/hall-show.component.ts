@@ -20,12 +20,6 @@ export class HallShowComponent{
     form: FormGroup;
     rows: number;
     moviesSub: Subscription
-    // movies = [
-    //     {id: "123", name: "john"},
-    //     {id: "423", name: "sam"},
-    //     {id: "523", name: "tom"},
-    //     {id: "923", name: "ram"}
-    // ];
     movies: Movie[] = [];
     selectedValue: string;
     alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
