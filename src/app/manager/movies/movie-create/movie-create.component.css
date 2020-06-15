@@ -2,3 +2,60 @@ mat-form-field,
 textarea{
     width: 100%;
 }
+
+mat-card img{
+    height: 240px;
+    margin-bottom: 10%;
+  }
+  
+  mat-card{
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    padding-bottom: 0px;
+  }
+  
+  mat-card-content{
+    padding-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+  }
+  
+  mat-spinner {
+    margin: 16rem auto;
+  }
+  
+  mat-paginator {
+    margin-top: 1rem;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.14);
+  }
+  
+  h3 {
+    font-size: larger;
+    color: #666;    
+  }
+  
+  .noContent {
+    margin: 16rem auto;
+    width: fit-content;
+    padding: 2% 5%;
+    font-size: 25px;
+  }
+  
+  .content {
+    position: block;
+    margin: auto;
+  
+  }
+  
+  .example-card {
+      margin: 15px;
+      width: 150px;
+      height: 280px;
+      box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.25);
+    }
+  
+  
+    
+   

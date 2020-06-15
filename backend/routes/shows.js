@@ -34,6 +34,25 @@ router.get("/data/:id", (req, res, next) => {
     })
 });
 
+router.get("/schedule/:id", (req, res, next) => {
+    Show.find(
+        {hallId: "5ed52fe145f2e73a10a8d8fc", startTime: { $gte: new Date(req.query.date) } }, 
+         'sourceId startTime endTime' )
+        .sort( { startTime: 1 } )
+        .then(documents => { 
+            res.status(200).json({
+                message: 'Schedule fetched successfully!',
+                schedule: documents
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                message: err.toString()
+            });
+        });
+    
+});
+
 router.post("", (req, res, next) => {
     Theatre.findById(req.body.theatreData).then(theatreData => {
          const show=new Show({

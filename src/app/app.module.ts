@@ -27,6 +27,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -108,6 +109,7 @@ import { SidenavComponent } from './manager/sidenav/sidenav.component';
     MatMenuModule,
     MatSidenavModule,
     MatSelectModule,
+    MatTableModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,

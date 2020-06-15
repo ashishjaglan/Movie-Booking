@@ -29,7 +29,7 @@ export class EventListComponent implements OnInit {
         this.cityId = localStorage.getItem('cityId');
         if(this.cityId!=null){
             this.isLoading = true;
-                this.eventsService.getEvents(this.eventsPerPage, this.currentPage);
+                this.eventsService.getEvents(this.cityId, this.eventsPerPage, this.currentPage);
                 this.eventsSub = this.eventsService.getEventsUpdateListener()
                 .subscribe((eventsData:{events: Event[], eventCount: number}) => {
                     this.isLoading = false;
@@ -45,7 +45,7 @@ export class EventListComponent implements OnInit {
         this.isLoading = true;
         this.currentPage = pageData.pageIndex + 1;
         this.eventsPerPage = pageData.pageSize;
-        this.eventsService.getEvents(this.eventsPerPage, this.currentPage);
+        this.eventsService.getEvents(this.cityId, this.eventsPerPage, this.currentPage);
     }
 
 }

@@ -4,11 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HallScheduleItem } from '../models/hallScheduleItem.model';
 
 @Injectable({providedIn: 'root'})
 export class ShowsService{
     private shows: Show[] = [];
+    private schedule: HallScheduleItem[] = [];
     private showsUpdated = new Subject<{}>();
+    private scheduleUpdated = new Subject<{}>();
 
     constructor(private http: HttpClient, private router: Router) {}
 
@@ -55,6 +58,30 @@ export class ShowsService{
             seats: number[];
             cols: number;
         }>( 'http://localhost:3000/api/show/data/' + showId)
+    }
+
+    getHallSchedule(hallId: string, date: Date){
+        const queryParams = `?date=${date}`;
+        this.http.get<{message: string, schedule: any}>('http://localhost:3000/api/show/schedule/' + hallId + queryParams)
+        .pipe(map((scheduleData) => {
+            return scheduleData.schedule.map(schedule => {
+                return {
+                    id: schedule._id,
+                    sourceId: schedule.sourceId,
+                    startTime: new Date(schedule.startTime),
+                    endTime: new Date(schedule.endTime)
+                };
+            })
+        }))
+        .subscribe((transformedScheduleData) => {
+            //console.log(scheduleData);
+            this.schedule = transformedScheduleData;
+            this.scheduleUpdated.next([...this.schedule]);
+        });
+    }
+
+    gettHallScheduleUpdateListener(){
+        return this.scheduleUpdated.asObservable();
     }
 
     addShow(sourceId: string, isMovie: boolean, theatreId: string, hallId: string, date: Date, startTime: string, 

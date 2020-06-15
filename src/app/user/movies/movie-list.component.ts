@@ -29,7 +29,7 @@ export class MovieListComponent implements OnInit {
         this.cityId = localStorage.getItem('cityId');
         if(this.cityId!=null){
             this.isLoading = true;
-                this.moviesService.getMovies(this.moviesPerPage, this.currentPage);
+                this.moviesService.getMovies(this.cityId, this.moviesPerPage, this.currentPage);
                 this.moviesSub = this.moviesService.getMoviesUpdateListener()
                 .subscribe((moviesData:{movies: Movie[], movieCount: number}) => {
                     this.isLoading = false;
@@ -45,7 +45,7 @@ export class MovieListComponent implements OnInit {
         this.isLoading = true;
         this.currentPage = pageData.pageIndex + 1;
         this.moviesPerPage = pageData.pageSize;
-        this.moviesService.getMovies(this.moviesPerPage, this.currentPage);
+        this.moviesService.getMovies(this.cityId, this.moviesPerPage, this.currentPage);
     }
 
 }

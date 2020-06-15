@@ -18,10 +18,10 @@ export class MoviesService{
 
     constructor(private http: HttpClient, private router: Router, private managerAuthService: ManagerAuthService) {}
 
-    getMovies(moviesPerPage: number, currentPage: number){
+    getMovies(cityId: string, moviesPerPage: number, currentPage: number){
         this.cityId = localStorage.getItem('cityId');
         const queryParams = `?pagesize=${moviesPerPage}&page=${currentPage}`;
-        this.http.get<{message: string, movies: any, maxMovies: number}>('http://localhost:3000/api/movie/' + this.cityId + queryParams)
+        this.http.get<{message: string, movies: any, maxMovies: number}>('http://localhost:3000/api/movie/' + cityId + queryParams)
         .pipe(map((movieData) => {            
             return {
             movies: movieData.movies.map(movie => {

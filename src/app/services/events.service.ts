@@ -16,10 +16,10 @@ export class EventsService{
 
     constructor(private http: HttpClient, private router: Router, private managerAuthService: ManagerAuthService) {}
 
-    getEvents(eventsPerPage: number, currentPage: number){
+    getEvents(cityId, eventsPerPage: number, currentPage: number){
         this.cityId = localStorage.getItem('cityId');
         const queryParams = `?pagesize=${eventsPerPage}&page=${currentPage}`;
-        this.http.get<{message: string, events: any, maxEvents: number}>('http://localhost:3000/api/event/' + this.cityId + queryParams)
+        this.http.get<{message: string, events: any, maxEvents: number}>('http://localhost:3000/api/event/' + cityId + queryParams)
         .pipe(map((eventData) => {
             return {
             events: eventData.events.map(event => {

@@ -7,6 +7,7 @@ import { ShowsService } from 'src/app/services/shows.service';
 import { MoviesService } from 'src/app/services/movies.service';
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/models/movie.model';
+import { HallScheduleItem } from 'src/app/models/hallScheduleItem.model';
 
 @Component({
     selector: 'app-hall-show',
@@ -18,10 +19,14 @@ export class HallShowComponent{
     isMovie = true;
     hall: Hall;
     form: FormGroup;
+    scheduleForm: FormGroup;
+    schedules: HallScheduleItem[] = [];
     rows: number;
-    moviesSub: Subscription
+    moviesSub: Subscription;
+    scheduleSub: Subscription;
     movies: Movie[] = [];
     selectedValue: string;
+    displayedColumns: string[] = ['sourceId', 'startTime', 'endTime'];
     alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
     'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
     rowsArray: string[];
@@ -62,7 +67,6 @@ export class HallShowComponent{
             price: new FormControl(null, {validators: [Validators.required] })            
         });
 
-
     }
 
     seatLayout(){
@@ -75,12 +79,54 @@ export class HallShowComponent{
 
     }
 
+    getSchedule(){
+        this.showsService.getHallSchedule(this.hallId, this.form.value.date);
+        this.scheduleSub = this.showsService.gettHallScheduleUpdateListener()
+            .subscribe((schedule: HallScheduleItem[]) => {
+                this.schedules = schedule;
+                console.log(this.schedules);                
+                });
+    }
+
     addShow(){
-        console.log(this.form.value);
+        if(this.checkShowConflict(this.getDateObject(this.form.value.startTime), this.getDateObject(this.form.value.endTime)) == true){
+            console.log("Conflict");
+        }else{
+            console.log(this.form.value);
+        }
         
         // this.showsService.addShow(this.form.value.movie.id, this.isMovie, this.hall.theatreId, this.hallId, this.form.value.date, 
         //     this.form.value.startTime, this.form.value.endTime, this.form.value.price, this.hall.seats, this.hall.cols);
     }
 
+    checkShowConflict(startTime: Date, endTime: Date){
+        for(var schedule of this.schedules){
+            if((startTime<=schedule.startTime && endTime>=schedule.endTime) || (startTime>=schedule.startTime && startTime<schedule.endTime) || (endTime>schedule.startTime && endTime<=schedule.endTime)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    getDateObject(time: string){
+        var hour = time.split(':');
+            var minute = hour[1].split(' ');            
+            var dateObject = new Date(this.form.value.date);
+            if(hour[0]=='12'){
+                if(minute[1]=='AM'){
+                    dateObject.setHours(0);
+                }
+                else dateObject.setHours(12);
+            }else{
+                if(minute[1]=='PM'){
+                    dateObject.setHours(parseInt(hour[0])+12);
+                }
+                else    dateObject.setHours(parseInt(hour[0]));
+            }            
+            dateObject.setMinutes(parseInt(minute[0]));
+            console.log(dateObject);
+            
+            return dateObject;
+    }
     
 }

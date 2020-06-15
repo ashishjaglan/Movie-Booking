@@ -47,6 +47,10 @@
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1 color="primary"></mat-datepicker>
                 </mat-form-field>
+                <button type="button"
+                mat-raised-button 
+                color = "primary"
+                (click)="getSchedule()">Get Schedule</button>
             </div>
         
             <div>
@@ -82,4 +86,31 @@
     </mat-expansion-panel>
 
   </mat-accordion>
+
+  <div>
+
+    <table mat-table class="scheduleTable" [dataSource]="schedules" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="sourceId">
+          <th mat-header-cell *matHeaderCellDef> Show Name </th>
+          <td mat-cell *matCellDef="let show"> {{show.sourceId}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef> Start time </th>
+          <td mat-cell *matCellDef="let show"> {{ show.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef> End time </th>
+          <td mat-cell *matCellDef="let show"> {{show.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+  </div>
 

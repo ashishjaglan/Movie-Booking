@@ -1,4 +1,9 @@
-<mat-card>
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add Event
+        </mat-panel-title>
+    </mat-expansion-panel-header> 
     <form [formGroup]="form" (submit)="addEvent()">
         <mat-form-field>
             <input 
@@ -45,5 +50,25 @@
             color = "primary"
             type="submit">Save Event</button>
     </form>
-    
-</mat-card>
+</mat-expansion-panel>
+
+<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+
+  <div class="content" *ngIf="!isLoading" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
+
+  <mat-card class="example-card" *ngFor="let event of events">
+    <img mat-card-image [src]="event.imagePath" alt="Photo of event">
+    <mat-card-content>
+      <h4>{{ event.name }}</h4>
+      <h5>{{ event.language }}</h5>
+    </mat-card-content>
+   
+  </mat-card>
+</div>
+<mat-paginator [length]="totalEvents" [pageSize]="eventsPerPage" [pageSizeOptions]="pagesSizeOptions" (page)="onChangedPage($event)" 
+*ngIf="events.length > 0">
+</mat-paginator>
+
+<div class="noContent">
+  <h3 *ngIf="events.length <= 0 && !isLoading">No events added yet!</h3>
+</div>
