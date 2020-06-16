@@ -84,46 +84,13 @@ export class ShowsService{
         return this.scheduleUpdated.asObservable();
     }
 
-    addShow(sourceId: string, isMovie: boolean, theatreId: string, hallId: string, date: Date, startTime: string, 
-        endTime: string, price: string, seats: number[], cols: number){
-            
-            var startHour = startTime.split(':');
-            var startMinute = startHour[1].split(' ');            
-            var start = new Date(date);
-            if(startHour[0]=='12'){
-                if(startMinute[1]=='AM'){
-                    start.setHours(0);
-                }
-                else start.setHours(12);
-            }else{
-                if(startMinute[1]=='PM'){
-                    start.setHours(parseInt(startHour[0])+12);
-                }
-                else    start.setHours(parseInt(startHour[0]));
-            }            
-            start.setMinutes(parseInt(startMinute[0]));
-            console.log(start);
-            
-            var endHour = endTime.split(':');
-            var endMinute = endHour[1].split(' ');            
-            var end = new Date(date);
-            if(endHour[0]=='12'){
-                if(endMinute[1]=='AM'){
-                    end.setHours(0);
-                }
-                else end.setHours(12);
-            }else{
-                if(endMinute[1]=='PM'){
-                    end.setHours(parseInt(endHour[0])+12);
-                }
-                else    end.setHours(parseInt(endHour[0]));
-            }            
-            end.setMinutes(parseInt(endMinute[0]));
-            console.log(end);
+    addShow(sourceId: string, isMovie: boolean, theatreId: string, hallId: string, date: Date, startTime: Date, 
+        endTime: Date, price: string, seats: number[], cols: number){
             
         const show: Show = { id: null, sourceId: sourceId, isMovie: isMovie, theatreData: theatreId, hallId: hallId, 
-            startTime: start, endTime: end, price: parseInt(price), seatsAvailable: (seats.length), 
+            startTime: startTime, endTime: endTime, price: parseInt(price), seatsAvailable: (seats.length), 
             seats: seats, cols: cols};
+        
             
         this.http
             .post<{ message: string}>('http://localhost:3000/api/show', show)

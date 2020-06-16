@@ -54,7 +54,6 @@ export class HallsService{
           }
 
         const hall: Hall = { id: null, theatreId: theaterId, name: name, seats: seats, cols: parseInt(cols) };
-        //console.log(hall);
         
         this.http
             .post<{ message: string}>('http://localhost:3000/api/hall', hall)

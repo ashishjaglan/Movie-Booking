@@ -35,8 +35,11 @@ router.get("/data/:id", (req, res, next) => {
 });
 
 router.get("/schedule/:id", (req, res, next) => {
+    dayEnd = new Date(req.query.date);
+    dayEnd.setTime(dayEnd.getTime() + 24*60*60*1000 - 1);
+    
     Show.find(
-        {hallId: "5ed52fe145f2e73a10a8d8fc", startTime: { $gte: new Date(req.query.date) } }, 
+        {hallId: req.params.id, startTime: { $gte: new Date(req.query.date), $lte: dayEnd } }, 
          'sourceId startTime endTime' )
         .sort( { startTime: 1 } )
         .then(documents => { 

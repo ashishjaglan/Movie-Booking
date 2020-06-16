@@ -6,8 +6,14 @@ mat-card{
     margin-top: 2rem;
 }
 
+mat-expansion-panel {
+  width: 80%;
+  margin: 5px auto;
+}
+
 table {
   width: 80%;
+  margin: 5px auto;
 }
 
 .padding-right {

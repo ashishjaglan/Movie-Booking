@@ -5,7 +5,8 @@
         <mat-icon>home</mat-icon>
         <span class="logo" >Movie Booking</span>
       </button>
-      <div *ngIf="!deviceXs && hasCityId && !managerIsAuthenticated" fxLayout="row">
+      <span class="logo" *ngIf="managerIsAuthenticated">Movie Booking</span>
+      <div *ngIf="!deviceXs && !managerIsAuthenticated" fxLayout="row">
         <button mat-button routerLink="/movies" routerLinkActive="mat-warn">Movies</button>
         <button mat-button routerLink="/events" routerLinkActive="mat-warn">Events</button>
         <button mat-button routerLink="/history" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">History</button>
@@ -43,23 +44,28 @@
         <mat-icon>payment</mat-icon>
         <span>Pending payments</span>
       </button>
-      <button mat-menu-item *ngIf="userIsAuthenticated" (click)="onLogout()">
+      <button mat-menu-item *ngIf="userIsAuthenticated || managerIsAuthenticated" (click)="onLogout()">
         <mat-icon>arrow_forward</mat-icon>
         <span>Logout</span>
       </button>
-      <button mat-menu-item *ngIf="!userIsAuthenticated" routerLink="/login">
+      <button mat-menu-item *ngIf="!(userIsAuthenticated || managerIsAuthenticated)" routerLink="/login">
         <mat-icon>login</mat-icon>
         <span>Login</span>
       </button>
-      <button mat-menu-item *ngIf="!userIsAuthenticated" routerLink="/signup">
+      <button mat-menu-item *ngIf="!(userIsAuthenticated || managerIsAuthenticated)" routerLink="/signup">
         <mat-icon>person_add</mat-icon>
         <span>Signup</span>
       </button>
     </mat-menu>
   </mat-toolbar-row>
-  <mat-toolbar-row *ngIf="deviceXs && hasCityId" fxLayoutAlign="space-between end">
+  <mat-toolbar-row *ngIf="deviceXs && !managerIsAuthenticated" fxLayoutAlign="space-between end">
     <button mat-button routerLink="/movies" routerLinkActive="mat-warn">Movies</button>
     <button mat-button routerLink="/events" routerLinkActive="mat-warn">Events</button>
     <button mat-button routerLink="/history" routerLinkActive="mat-warn" *ngIf="userIsAuthenticated">History</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="deviceXs && managerIsAuthenticated" fxLayoutAlign="space-between end">
+    <button mat-button routerLink="/manager/movie" routerLinkActive="mat-warn">Movies</button>
+    <button mat-button routerLink="/manager/event" routerLinkActive="mat-warn">Events</button>
+    <button mat-button routerLink="/manager/theatreList" routerLinkActive="mat-warn">Theatres</button>
   </mat-toolbar-row>
 </mat-toolbar>

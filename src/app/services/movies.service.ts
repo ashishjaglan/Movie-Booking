@@ -80,19 +80,30 @@ export class MoviesService{
     }
 
 
-    //{"_id":{"$oid":"5ecbecaf88b09661c46201b9"},"name":"Delhi","__v":{"$numberInt":"0"}}
-    //{"_id":{"$oid":"5ecbefdcea3f0f7e4cca92bc"},"name":"Bangalore","__v":{"$numberInt":"0"}}
-
-    addMovie(name: string, imagePath: string, language: string, duration: string, description: string){
+    addMovie(isURL: boolean, name: string, image: any, language: string, duration: string, description: string){
         const managerCityId = this.managerAuthService.getManagerCityId();
-        const movie: Movie = { id: null, cityId: managerCityId, name: name, language: language,
-            description: description, duration: duration, imagePath: imagePath, timestamp: new Date() };
-        this.http
-            .post<{ message: string}>('http://localhost:3000/api/movie', movie)
-            .subscribe((responseData) => {
-                console.log(responseData);                
-                //this.router.navigate(["/"]);
-            });
+        if(isURL == true){
+            const movie: Movie = { id: null, cityId: managerCityId, name: name, language: language,
+                description: description, duration: duration, imagePath: image, timestamp: new Date() };
+            this.http
+                .post<{ message: string}>('http://localhost:3000/api/movie', movie)
+                .subscribe((responseData) => {
+                    location.reload();
+                });
+        }else{
+            const movieData = new FormData();
+            movieData.append("cityId", managerCityId);
+            movieData.append("name", name);
+            movieData.append("language", language);
+            movieData.append("description", description);
+            movieData.append("duration", duration);
+            movieData.append("imagePath", image, name);
+            this.http
+                .post<{ message: string }>('http://localhost:3000/api/movie/imageUpload', movieData)
+                .subscribe((responseData) => {
+                    location.reload();
+                });
+        }
         
     }
 

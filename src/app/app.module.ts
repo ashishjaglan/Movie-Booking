@@ -28,6 +28,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -110,6 +111,7 @@ import { SidenavComponent } from './manager/sidenav/sidenav.component';
     MatSidenavModule,
     MatSelectModule,
     MatTableModule,
+    MatButtonToggleModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,

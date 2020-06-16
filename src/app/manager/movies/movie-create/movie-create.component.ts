@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/models/movie.model';
 import { PageEvent } from '@angular/material/paginator';
+import { mimeType } from 'src/app/validators/mime-type.validator';
 
 @Component({
     selector: 'app-movie-create',
@@ -19,9 +20,12 @@ export class MovieCreateComponent implements OnInit {
     isLoading = false;
     moviesSub: Subscription;
     totalMovies = 0;
-    moviesPerPage = 4;
+    moviesPerPage = 6;
     currentPage=1;
-    pagesSizeOptions = [4,8,12,16];
+    pagesSizeOptions = [6,12,24];
+    isURL = "true";
+    imagePreview: string;
+    
 
     constructor(private moviesService: MoviesService, private route: ActivatedRoute){}
 
@@ -39,7 +43,8 @@ export class MovieCreateComponent implements OnInit {
             
         this.form = new FormGroup({
             name: new FormControl(null, {validators: [Validators.required] }),
-            imagePath: new FormControl(null, {validators: [Validators.required] }),
+            imagePath: new FormControl(null),
+            image: new FormControl(null, {asyncValidators: [mimeType] }),
             language: new FormControl(null, {validators: [Validators.required] }),
             duration: new FormControl(null, {validators: [Validators.required] }),
             description: new FormControl(null, {validators: [Validators.required] }),
@@ -47,11 +52,26 @@ export class MovieCreateComponent implements OnInit {
         });
     }
 
+    onImagePicked(event: Event){
+        const file = (event.target as HTMLInputElement).files[0];
+        this.form.patchValue({image: file});
+        this.form.get('image').updateValueAndValidity();
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = String(reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
 
     addMovie() {
         if (this.form.valid) {
-          this.moviesService.addMovie(this.form.value.name, this.form.value.imagePath, this.form.value.language, 
-            this.form.value.duration, this.form.value.description);
+            if(this.isURL == 'true'){
+                this.moviesService.addMovie(true, this.form.value.name, this.form.value.imagePath, this.form.value.language, 
+                this.form.value.duration, this.form.value.description);
+            }else{
+                this.moviesService.addMovie(false, this.form.value.name, this.form.value.image, this.form.value.language, 
+                    this.form.value.duration, this.form.value.description);
+            }
         }
     }
     

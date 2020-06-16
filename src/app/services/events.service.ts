@@ -12,7 +12,9 @@ export class EventsService{
 
     private cityId: string;
     private events: Event[] =[];
+    private managerEvents: Event[] =[];
     private eventsUpdated = new Subject<{events: Event[], eventCount: number}>();
+    private managerEventsUpdated = new Subject<{}>();
 
     constructor(private http: HttpClient, private router: Router, private managerAuthService: ManagerAuthService) {}
 
@@ -48,9 +50,35 @@ export class EventsService{
         return this.eventsUpdated.asObservable();
     }
 
+    getEventsForManager() {
+        const managerCityId = this.managerAuthService.getManagerCityId();
+        this.http.get<{message: string, events: any}>('http://localhost:3000/api/event/manager/' + managerCityId)
+        .pipe(map((eventData) => {            
+            return {
+                events: eventData.events.map(event => {
+                return {
+                    id: event._id,
+                    cityId: null,
+                    name: event.name,
+                    language: null,
+                    description: null,
+                    duration: event.duration,
+                    imagePath: null,
+                    timestamp: null
+                };
+            })
+        };
+        }))
+        .subscribe((transformedEventsData) => {
+            this.managerEvents = transformedEventsData.events;
+            this.managerEventsUpdated.next([...this.managerEvents]);
+        });
+    }
 
-    //{"_id":{"$oid":"5ecbecaf88b09661c46201b9"},"name":"Delhi","__v":{"$numberInt":"0"}}
-    //{"_id":{"$oid":"5ecbefdcea3f0f7e4cca92bc"},"name":"Bangalore","__v":{"$numberInt":"0"}}
+    getManagerEventsUpdateListener(){
+        return this.managerEventsUpdated.asObservable();
+    }
+
 
     addEvent(name: string, imagePath: string, language: string, duration: string, description: string){
         const managerCityId = this.managerAuthService.getManagerCityId();
@@ -59,8 +87,7 @@ export class EventsService{
         this.http
             .post<{ message: string}>('http://localhost:3000/api/event', event)
             .subscribe((responseData) => {
-                console.log(responseData);                
-                //this.router.navigate(["/"]);
+                location.reload();
             });
         
     }

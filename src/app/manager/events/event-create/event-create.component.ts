@@ -19,14 +19,15 @@ export class EventCreateComponent implements OnInit {
     isLoading = false;
     eventsSub: Subscription;
     totalEvents = 0;
-    eventsPerPage = 4;
+    eventsPerPage = 6;
     currentPage=1;
-    pagesSizeOptions = [4,8,12,16];
+    pagesSizeOptions = [6,12,24];
 
     constructor(public eventsService: EventsService, public route: ActivatedRoute){}
 
 
     ngOnInit(){
+        this.managerCityId = localStorage.getItem('managerCityId');
         this.isLoading = true;
         this.eventsService.getEvents(this.managerCityId, this.eventsPerPage, this.currentPage);
         this.eventsSub = this.eventsService.getEventsUpdateListener()

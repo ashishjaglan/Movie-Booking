@@ -7,7 +7,9 @@ import { ShowsService } from 'src/app/services/shows.service';
 import { MoviesService } from 'src/app/services/movies.service';
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/models/movie.model';
+import { Event } from 'src/app/models/event.model';
 import { HallScheduleItem } from 'src/app/models/hallScheduleItem.model';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
     selector: 'app-hall-show',
@@ -16,15 +18,17 @@ import { HallScheduleItem } from 'src/app/models/hallScheduleItem.model';
 })
 export class HallShowComponent{
     hallId: string;
-    isMovie = true;
+    isMovie: string = 'true';
     hall: Hall;
     form: FormGroup;
     scheduleForm: FormGroup;
     schedules: HallScheduleItem[] = [];
     rows: number;
     moviesSub: Subscription;
+    eventsSub: Subscription;
     scheduleSub: Subscription;
     movies: Movie[] = [];
+    events: Event[] = [];
     selectedValue: string;
     displayedColumns: string[] = ['sourceId', 'startTime', 'endTime'];
     alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
@@ -34,7 +38,7 @@ export class HallShowComponent{
     colsArray: string[] = ['1'];
 
     constructor(private hallsService: HallsService, private showsService: ShowsService, private moviesService: MoviesService,
-        private route: ActivatedRoute, private router: Router) {}
+        private evetsService: EventsService, private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(){
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -58,9 +62,16 @@ export class HallShowComponent{
             .subscribe((movies: Movie[]) => {
                 this.movies = movies;
                 });
+        
+        this.evetsService.getEventsForManager();
+        this.eventsSub = this.evetsService.getManagerEventsUpdateListener()
+            .subscribe((events: Event[]) => {
+                this.events = events;
+                });
 
         this.form = new FormGroup({
-            movie: new FormControl(null, {validators: [Validators.required] }),
+            movie: new FormControl(null),
+            event: new FormControl(null),
             date: new FormControl(null, {validators: [Validators.required] }),
             startTime: new FormControl(null, {validators: [Validators.required] }),
             endTime: new FormControl(null, {validators: [Validators.required] }),
@@ -83,20 +94,21 @@ export class HallShowComponent{
         this.showsService.getHallSchedule(this.hallId, this.form.value.date);
         this.scheduleSub = this.showsService.gettHallScheduleUpdateListener()
             .subscribe((schedule: HallScheduleItem[]) => {
-                this.schedules = schedule;
-                console.log(this.schedules);                
+                this.schedules = schedule;              
                 });
     }
 
     addShow(){
-        if(this.checkShowConflict(this.getDateObject(this.form.value.startTime), this.getDateObject(this.form.value.endTime)) == true){
+        var startingTime = this.getDateObject(this.form.value.startTime);
+        var endingTime = this.getDateObject(this.form.value.endTime);
+        if(this.checkShowConflict(startingTime, endingTime) == true){
             console.log("Conflict");
         }else{
-            console.log(this.form.value);
-        }
+            this.showsService.addShow(this.isMovie == "true" ?this.form.value.movie.id : this.form.value.event.id, 
+            this.isMovie == "true", this.hall.theatreId, this.hallId, this.form.value.date, 
+            startingTime, endingTime, this.form.value.price, this.hall.seats, this.hall.cols);
+        }        
         
-        // this.showsService.addShow(this.form.value.movie.id, this.isMovie, this.hall.theatreId, this.hallId, this.form.value.date, 
-        //     this.form.value.startTime, this.form.value.endTime, this.form.value.price, this.hall.seats, this.hall.cols);
     }
 
     checkShowConflict(startTime: Date, endTime: Date){
@@ -124,7 +136,6 @@ export class HallShowComponent{
                 else    dateObject.setHours(parseInt(hour[0]));
             }            
             dateObject.setMinutes(parseInt(minute[0]));
-            console.log(dateObject);
             
             return dateObject;
     }
