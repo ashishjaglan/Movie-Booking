@@ -1,7 +1,16 @@
+mat-spinner {
+  margin: 16rem auto;
+}
+
+mat-expansion-panel {
+  width: 70%;
+  margin: 1rem auto;
+}
+
 mat-grid-tile {
     background: white;
     cursor: pointer;
-    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.14);
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.54);
     font-size: medium;
   }
 
@@ -11,6 +20,7 @@ mat-grid-tile {
     margin-right: 10%;
 }
 
-   .halls-holder {
-       margin: 2rem 2rem;
-  } 
+  .halls-holder {
+    width: 80%;
+    margin: 2rem auto;
+} 

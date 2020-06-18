@@ -92,12 +92,8 @@ export class ShowsService{
             seats: seats, cols: cols};
         
             
-        this.http
-            .post<{ message: string}>('http://localhost:3000/api/show', show)
-            .subscribe((responseData) => {
-                console.log(responseData);                
-                //this.router.navigate(["/"]);
-            });
+        return this.http
+            .post<{ message: string}>('http://localhost:3000/api/show', show);
         
     }
 }

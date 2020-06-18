@@ -1,3 +1,7 @@
+mat-spinner {
+  margin: 16rem auto;
+}
+
 mat-panel-title{
     font-size: medium;
     font-weight: normal;
@@ -61,5 +65,11 @@ table {
   }
 
   button{
+    background-color: #0378ff;
+    color: white;
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 4px 40px;
     margin-left: 10px;
   }

@@ -13,6 +13,7 @@ export class HallListComponent implements OnInit{
     theatreId: string;
     numOfCols: number;
     halls: Hall[] = [];
+    isLoading = false;
     private hallsSub: Subscription;
 
     constructor(public hallsService: HallsService, public route: ActivatedRoute, public router: Router) {}
@@ -20,11 +21,13 @@ export class HallListComponent implements OnInit{
     ngOnInit(){
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if(paramMap.has('theatreId')){
+                this.isLoading = true;
                 this.theatreId = paramMap.get('theatreId');
                 this.hallsService.getHalls(this.theatreId);
                 this.hallsSub = this.hallsService.getHallsUpdateListener()
                 .subscribe((halls: Hall[]) => {
                 this.halls = halls;
+                this.isLoading = false;
                 });
             }                      
         });

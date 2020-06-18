@@ -23,10 +23,10 @@ export class CityCreateComponent implements OnInit{
     }
 
 
-      addCity() {
-        if (this.form.valid) {
-          this.citiesService.addCity(this.form.value.name);
-        }
+    addCity() {
+      if (this.form.valid) {
+        this.citiesService.addCity(this.form.value.name);
       }
+    }
 
 }

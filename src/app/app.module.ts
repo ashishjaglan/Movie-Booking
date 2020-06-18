@@ -29,7 +29,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -57,7 +57,6 @@ import { EventListComponent } from './user/events/event-list.component';
 import { PaymentComponent } from './user/payment/payment.component';
 import { HistoryComponent } from './user/history/history.component';
 import { PendingPaymentsComponent } from './user/payment/pendingPayments/pending-payments.component';
-import { SidenavComponent } from './manager/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -82,8 +81,7 @@ import { SidenavComponent } from './manager/sidenav/sidenav.component';
     LoginComponent,
     SignupComponent,
     ErrorComponent,
-    HeaderComponent,
-    SidenavComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +110,7 @@ import { SidenavComponent } from './manager/sidenav/sidenav.component';
     MatSelectModule,
     MatTableModule,
     MatButtonToggleModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxMaterialTimepickerModule,

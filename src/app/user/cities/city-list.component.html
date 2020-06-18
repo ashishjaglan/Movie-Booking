@@ -1,6 +1,7 @@
 <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
 
 <div class="cities-holder" *ngIf="!isLoading">
+    <div class="title">Select your city</div>
     <mat-grid-list [cols]="numOfCols" (window:resize)="onResize($event)" rowHeight="3:2"  gutterSize="15px">
         <mat-grid-tile matRipple (click)="showMovies(city.id)" onfocus="" *ngFor="let city of cities">{{ city.name }}</mat-grid-tile>        
     </mat-grid-list>

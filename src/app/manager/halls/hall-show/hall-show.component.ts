@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HallsService } from 'src/app/services/halls.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Hall } from 'src/app/models/hall.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { ShowsService } from 'src/app/services/shows.service';
 import { MoviesService } from 'src/app/services/movies.service';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { Movie } from 'src/app/models/movie.model';
 import { Event } from 'src/app/models/event.model';
 import { HallScheduleItem } from 'src/app/models/hallScheduleItem.model';
 import { EventsService } from 'src/app/services/events.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-hall-show',
@@ -30,6 +31,7 @@ export class HallShowComponent{
     movies: Movie[] = [];
     events: Event[] = [];
     selectedValue: string;
+    isLoading = false;
     displayedColumns: string[] = ['sourceId', 'startTime', 'endTime'];
     alphabet: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
     'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
@@ -38,11 +40,12 @@ export class HallShowComponent{
     colsArray: string[] = ['1'];
 
     constructor(private hallsService: HallsService, private showsService: ShowsService, private moviesService: MoviesService,
-        private evetsService: EventsService, private route: ActivatedRoute, private router: Router) {}
+        private evetsService: EventsService, private route: ActivatedRoute, private router: Router,private _snackBar: MatSnackBar) {}
 
     ngOnInit(){
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if(paramMap.has('hallId')){
+                this.isLoading = true;
                 this.hallId = paramMap.get('hallId');
                 this.hallsService.getHall(this.hallId).subscribe(hallData => {
                     this.hall = {
@@ -53,6 +56,7 @@ export class HallShowComponent{
                         cols: hallData.cols
                     };
                     this.seatLayout();
+                    this.isLoading = false;
                 });
             }                      
         });
@@ -94,20 +98,31 @@ export class HallShowComponent{
         this.showsService.getHallSchedule(this.hallId, this.form.value.date);
         this.scheduleSub = this.showsService.gettHallScheduleUpdateListener()
             .subscribe((schedule: HallScheduleItem[]) => {
-                this.schedules = schedule;              
+                this.schedules = schedule;            
+                if(this.schedules.length == 0){
+                    this.openSnackBar("No shows scheduled for this day", "ok!");
+                }  
                 });
     }
 
-    addShow(){
+    addShow(formDirective: FormGroupDirective){
         var startingTime = this.getDateObject(this.form.value.startTime);
         var endingTime = this.getDateObject(this.form.value.endTime);
         if(this.checkShowConflict(startingTime, endingTime) == true){
-            console.log("Conflict");
-        }else{
+            this.openSnackBar("Another show scheduled in this time slot!!", ":/");
+        }else if(this.form.valid){
             this.showsService.addShow(this.isMovie == "true" ?this.form.value.movie.id : this.form.value.event.id, 
-            this.isMovie == "true", this.hall.theatreId, this.hallId, this.form.value.date, 
-            startingTime, endingTime, this.form.value.price, this.hall.seats, this.hall.cols);
-        }        
+                this.isMovie == "true", this.hall.theatreId, this.hallId, this.form.value.date, 
+                startingTime, endingTime, this.form.value.price, this.hall.seats, this.hall.cols)
+            .subscribe(() => {
+                this.openSnackBar("Show added successfully!!", ":)");
+                this.getSchedule();
+                formDirective.resetForm();
+                this.form.reset();
+                });
+        }else{
+            this.openSnackBar("Please check all the fields", "Try again!");
+        }    
         
     }
 
@@ -139,5 +154,11 @@ export class HallShowComponent{
             
             return dateObject;
     }
+
+    openSnackBar(message: string, action: string) {
+        this._snackBar.open(message, action, {
+          duration: 2000,
+        });
+      }
     
 }

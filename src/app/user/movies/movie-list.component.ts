@@ -29,13 +29,13 @@ export class MovieListComponent implements OnInit {
         this.cityId = localStorage.getItem('cityId');
         if(this.cityId!=null){
             this.isLoading = true;
-                this.moviesService.getMovies(this.cityId, this.moviesPerPage, this.currentPage);
-                this.moviesSub = this.moviesService.getMoviesUpdateListener()
-                .subscribe((moviesData:{movies: Movie[], movieCount: number}) => {
-                    this.isLoading = false;
-                    this.movies = moviesData.movies;
-                    this.totalMovies = moviesData.movieCount;
-                  });
+            this.moviesService.getMovies(this.cityId, this.moviesPerPage, this.currentPage);
+            this.moviesSub = this.moviesService.getMoviesUpdateListener()
+            .subscribe((moviesData:{movies: Movie[], movieCount: number}) => {
+                this.isLoading = false;
+                this.movies = moviesData.movies;
+                this.totalMovies = moviesData.movieCount;
+                });
         }else{
             this.router.navigate(["/"]);
         }
