@@ -3,8 +3,8 @@
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened>
         <div fxLayout="column" class="sideBar">
-            <button class="sidebarButton" (click)="reloadHistory('active')" routerLink="/history" mat-button routerLinkActive="mat-warn">Active Bookings</button>
-            <button class="sidebarButton" (click)="reloadHistory('past')" mat-button routerLinkActive="mat-warn">Past Bookings</button>
+            <button [class.active]="activeBookings" [class.passive]="!activeBookings" (click)="reloadHistory('active')" mat-button>Active Bookings</button>
+            <button [class.active]="!activeBookings" [class.passive]="activeBookings" (click)="reloadHistory('past')" mat-button>Past Bookings</button>
         </div>
     </mat-drawer>
     <mat-drawer-content>

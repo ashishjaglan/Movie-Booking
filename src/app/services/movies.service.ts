@@ -50,6 +50,19 @@ export class MoviesService{
         return this.moviesUpdated.asObservable();
     }
 
+    getMovie(movieId: string){
+        return this.http.get<{
+            _id: string;
+            cityId: string;
+            name: string;
+            language: string;
+            description: string;
+            duration: string;
+            imagePath: string;
+            timestamp: Date
+        }>( 'http://localhost:3000/api/movie/data/' + movieId)
+    }
+
     getMoviesForManager() {
         const managerCityId = this.managerAuthService.getManagerCityId();
         this.http.get<{message: string, movies: any}>('http://localhost:3000/api/movie/manager/' + managerCityId)
@@ -85,6 +98,8 @@ export class MoviesService{
         if(isURL == true){
             const movie: Movie = { id: null, cityId: managerCityId, name: name, language: language,
                 description: description, duration: duration, imagePath: image, timestamp: new Date() };
+                console.log(movie);
+                
             this.http
                 .post<{ message: string}>('http://localhost:3000/api/movie', movie)
                 .subscribe((responseData) => {

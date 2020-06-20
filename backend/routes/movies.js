@@ -56,6 +56,16 @@ router.get("/:id", (req, res, next) => {
     
 });
 
+router.get("/data/:id", (req, res, next) => {
+    Movie.findById(req.params.id).then(movie => {
+        if(movie){
+            res.status(200).json(movie);
+        }else{
+            res.status(404).json({ message: 'Movie not found!'});
+        }
+    })
+});
+
 router.get("/manager/:id", (req, res, next) => {
     Movie.find({cityId: req.params.id}, 'name duration').sort( { name: 1 } ).then(movies => {
         if(movies){

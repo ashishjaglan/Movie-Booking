@@ -100,7 +100,7 @@ export class HallShowComponent{
             .subscribe((schedule: HallScheduleItem[]) => {
                 this.schedules = schedule;            
                 if(this.schedules.length == 0){
-                    this.openSnackBar("No shows scheduled for this day", "ok!");
+                    this.openSnackBar("No show scheduled for this day", ":)");
                 }  
                 });
     }

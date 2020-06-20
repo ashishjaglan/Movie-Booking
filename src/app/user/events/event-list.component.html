@@ -3,7 +3,7 @@
 
   <div class="content" *ngIf="!isLoading" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
 
-  <mat-card [routerLink]="['/shows', event.id]" class="example-card" *ngFor="let event of events">
+  <mat-card [routerLink]="['/shows']" [queryParams]="{sourceId: event.id, isMovie:'false'}" class="example-card" *ngFor="let event of events">
     <img mat-card-image [src]="event.imagePath" alt="Photo of event">
     <mat-card-content>
       <h4>{{ event.name }}</h4>

@@ -28,6 +28,16 @@ router.get("/:id", (req, res, next) => {
 
 });
 
+router.get("/data/:id", (req, res, next) => {
+    Event.findById(req.params.id).then(event => {
+        if(event){
+            res.status(200).json(event);
+        }else{
+            res.status(404).json({ message: 'Event not found!'});
+        }
+    })
+});
+
 router.get("/manager/:id", (req, res, next) => {
     Event.find({cityId: req.params.id}, 'name duration').sort( { name: 1 } ).then(events => {
         if(events){

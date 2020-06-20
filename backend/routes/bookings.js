@@ -69,7 +69,7 @@ router.patch("/:id", (req, res, next) => {
     if(req.body.status=="success"){
         Booking.findByIdAndUpdate(req.params.id, {status: req.body.status}, {useFindAndModify: false})
         .then((booking) => {
-            console.log(booking);        
+            //console.log(booking);        
         })
         .catch((err) => {
             res.status(404).json({ message: 'Booking not found!'});

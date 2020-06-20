@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: '', component: CityListComponent },
   { path: 'movies', component: MovieListComponent },
   { path: 'events', component: EventListComponent },
-  { path: 'shows/:sourceId', component: ShowListComponent },
+  { path: 'shows', component: ShowListComponent },
   { path: 'show/:showId', component: ShowComponent, canActivate: [UserAuthGuard] },
   { path: 'payment/:bookingId', component: PaymentComponent, canActivate: [UserAuthGuard] },
   { path: 'history', component: HistoryComponent, canActivate: [UserAuthGuard] },

@@ -19,7 +19,7 @@ export class EventListComponent implements OnInit {
     cityName: string;
     eventsSub: Subscription;
     totalEvents = 0;
-    eventsPerPage = 4;
+    eventsPerPage = 8;
     currentPage=1;
     pagesSizeOptions = [4,8,12,16];
     

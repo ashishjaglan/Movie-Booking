@@ -1,18 +1,18 @@
 <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
 
-<!-- <div class="movie" fxLayout="row">
+<div class="movie" fxLayout="row" *ngIf="!isSourceLoading">
   <div class="image">
-      <img src="https://i.pinimg.com/736x/3e/2b/7f/3e2b7fd692e74beed9f1353ed4dcb700.jpg" alt="Photo of movie">
+      <img [src]="source.imagePath" alt="Photo of movie">
   </div>
   <div class="movieContent">
-      <h1 class="movieName">The Imitation game</h1>
+      <h1 class="movieName">{{ source.name }}</h1>
       <div fxLayout="row">
-          <h1 class="rightmargin">Duration</h1>
-          <h1>Language</h1>
+          <h1 class="rightmargin">{{ source.duration }}</h1>
+          <h1>{{ source.language }}</h1>
       </div>
-      <p>Description</p>
+      <p>{{ source.description }}</p>
   </div>
-</div> -->
+</div>
 
 
 <div *ngIf="!isLoading">

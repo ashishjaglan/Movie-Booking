@@ -3,7 +3,7 @@
 
   <div class="content" *ngIf="!isLoading" fxLayout="row wrap" fxLayout-xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign-xs="center">
 
-  <mat-card [routerLink]="['/shows', movie.id]" class="example-card" *ngFor="let movie of movies">
+  <mat-card [routerLink]="['/shows']" [queryParams]="{sourceId: movie.id, isMovie:'true'}" class="example-card" *ngFor="let movie of movies">
     <img mat-card-image [src]="movie.imagePath" alt="Photo of movie">
     <mat-card-content>
       <h4>{{ movie.name }}</h4>

@@ -64,7 +64,7 @@ export class MovieCreateComponent implements OnInit {
     }
 
     addMovie() {
-        if (this.form.valid) {
+
             if(this.isURL == 'true'){
                 this.moviesService.addMovie(true, this.form.value.name, this.form.value.imagePath, this.form.value.language, 
                 this.form.value.duration, this.form.value.description);
@@ -72,7 +72,7 @@ export class MovieCreateComponent implements OnInit {
                 this.moviesService.addMovie(false, this.form.value.name, this.form.value.image, this.form.value.language, 
                     this.form.value.duration, this.form.value.description);
             }
-        }
+        
     }
     
     onChangedPage(pageData: PageEvent){

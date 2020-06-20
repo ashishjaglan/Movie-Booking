@@ -18,7 +18,6 @@ router.get("/:id", (req, res, next) => {
     }else{
         historyQuery= History.find({userId: req.params.id, startTime: { $lte: currentTime }}).sort( { timeStamp: -1 } );
     }
-    //History.find({userId: req.params.id, startTime: { $gte: currentTime }}).sort( { timeStamp: -1 } )
     historyQuery.then(documents => {
         res.status(200).json({
             message: 'Booking History fetched successfully!',
@@ -76,7 +75,7 @@ const addBookingHistory = async function(bookingId, userId) {
         });
   
       await history.save().then(document => {
-            console.log(document);          
+            //console.log(document);          
             
         });
   

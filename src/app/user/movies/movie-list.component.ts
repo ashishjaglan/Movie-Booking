@@ -19,7 +19,7 @@ export class MovieListComponent implements OnInit {
     cityName: string;
     moviesSub: Subscription;
     totalMovies = 0;
-    moviesPerPage = 4;
+    moviesPerPage = 8;
     currentPage=1;
     pagesSizeOptions = [4,8,12,16];
     

@@ -50,6 +50,19 @@ export class EventsService{
         return this.eventsUpdated.asObservable();
     }
 
+    getEvent(eventId: string){
+        return this.http.get<{
+            _id: string;
+            cityId: string;
+            name: string;
+            language: string;
+            description: string;
+            duration: string;
+            imagePath: string;
+            timestamp: Date
+        }>( 'http://localhost:3000/api/event/data/' + eventId)
+    }
+
     getEventsForManager() {
         const managerCityId = this.managerAuthService.getManagerCityId();
         this.http.get<{message: string, events: any}>('http://localhost:3000/api/event/manager/' + managerCityId)
